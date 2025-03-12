@@ -14,6 +14,7 @@ public class DbConnectionManager {
     private static final String driver = configReader.getProperty("db.driver");
 
     public static Connection getConnection() throws SQLException {
+        System.out.println("URL driver is here: "+URL);
         try {
             Class.forName(driver);
             return DriverManager.getConnection(URL, USER, PASSWORD);
