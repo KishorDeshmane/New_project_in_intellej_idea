@@ -7,7 +7,7 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-		features = "src/test/resources/features",		
+		features = "src/TestDBClass/resources/features",
 		tags="@Landing_page", //		tags="@Super_admi or @Super_admin", //		tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:

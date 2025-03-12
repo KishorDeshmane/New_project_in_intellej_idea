@@ -8,7 +8,7 @@
                     <include name="method_name"/>
                 </methods>
             </class>
-            <class name="stepDefinitions.test">
+            <class name="stepDefinitions.TestDBClass">
                 <methods>
                     <include name="testDB"/>
                     <include name="getUserById"/>

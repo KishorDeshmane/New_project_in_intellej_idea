@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import com.qa.dao.UserDAO;
 import com.qa.model.UserModel;
 
-public class test {
+public class TestDBClass {
 	 UserDAO dao;
 	 List<UserModel> users;
 	
@@ -53,7 +53,7 @@ public class test {
 	@Test
     public void testUpdateUserEmail() {
         dao = new UserDAO();
-        int userId = 6; // Change this ID based on your database
+        int userId = 7; // Change this ID based on your database
         String newName = "Updated Name";
         String newEmail = "updated.email@example.com";
         boolean isUpdated = dao.updateUser(userId, newName, newEmail);
@@ -67,7 +67,7 @@ public class test {
 	@Test
 	public void testDeleteUser() {
         dao = new UserDAO();
-        int userId = 6; // Change this ID based on your database
+        int userId = 7; // Change this ID based on your database
         boolean isDeleted = dao.deleteUser(userId);
         if (isDeleted) {
             System.out.println("User successfully deleted: ID " + userId);
@@ -75,5 +75,4 @@ public class test {
             System.out.println("Failed to delete user with ID " + userId);
         }
     }
-	
 }
