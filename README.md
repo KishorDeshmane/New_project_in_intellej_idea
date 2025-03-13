@@ -88,8 +88,6 @@ After that, reload the Maven project in IntelliJ.
 
 ---
 
-## **🐝 License**
-This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
