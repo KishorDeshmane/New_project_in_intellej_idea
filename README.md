@@ -1,27 +1,102 @@
-# **Introduction**
+### **📌 New Project in IntelliJ IDEA**
 
-This Test Automation Framework is created using Java + Selenium Web Driver + TestNG + Cucumber + Maven Page Object Model(POM). Which can be used across different web based applications.It is used to make the code more readable, maintainable and reusable.
+![IntelliJ IDEA](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/IntelliJ_IDEA_Icon.svg/120px-IntelliJ_IDEA_Icon.svg.png)
 
-## **Technologies/Tools used in building the framework**
+#### **🛠 Project Overview**
+This is a Java project built using **Maven** in **IntelliJ IDEA**. It includes essential configurations, dependencies, and a build process to ensure smooth development.
 
-IntelliJ IDEA - IDE
-Selenium - Browser Automation library
-Maven - Build automation tool
-Java - Programming language
-TestNG - Test Management library
-BDD - Cucumber
-Allure Reports - Reporting framework
-GitHub - Version control
-Steps to clone execute the tests
-git clone https://github.com/KishorDeshmane/New_project_in_intellej_idea
-cd New_project_in_intellej_idea
+---
+
+## **📂 Project Structure**
+```
+📛 NewProject  
+ └─ src  
+   └─ main  
+      └─ java  
+         └─ Main.java  
+   └─ test  
+      └─ java  
+         └─ MainTest.java  
+ └─ pom.xml  
+ └─ README.md  
+ └─ .gitignore  
+```
+
+---
+
+## **🚀 Getting Started**
+
+### **1️⃣ Prerequisites**
+Ensure you have the following installed:  
+✅ Java (JDK 8 or higher)  
+✅ IntelliJ IDEA (Latest version recommended)  
+✅ Apache Maven (3.x.x)
+
+---
+
+### **2️⃣ Cloning the Repository**
+```sh
+git clone https://github.com/KishorDeshmane/NewProject.git  
+cd NewProject
+```
+
+---
+
+### **3️⃣ Importing the Project into IntelliJ IDEA**
+1. Open **IntelliJ IDEA**.
+2. Click **"Open"**, then select the project folder.
+3. IntelliJ will detect the Maven project automatically.
+4. If prompted, select **"Import Maven Projects"**.
+
+---
+
+### **4️⃣ Building the Project**
+Run the following Maven command:
+```sh
 mvn clean install
-mvn test
+```
 
-## **Screenshot:**
+---
 
-Take Screenshots On test failures Method will automatically capture & store the screenshots under /reports directory. The screenshot files will be named of the test method name.
+### **5️⃣ Running the Application**
+To run the application inside IntelliJ IDEA:
+- Open `Main.java`.
+- Click **Run** ▶ or use the shortcut `Shift + F10`.
 
-## **Reporting:**
+To run via the terminal:
+```sh
+mvn exec:java -Dexec.mainClass="com.example.Main"
+```
 
-The framework produce index.html report and allure reports. It resides in the reports folder.This reports gives the link to all the different component of the TestNG reports like Groups & Reporter Output. On clicking these will display detailed descriptions of execution.
+---
+
+## **🐞 Troubleshooting**
+### **❌ Error: 'maven-compiler-plugin version missing'**
+✅ **Solution:** Add the following to `pom.xml` inside `<build>` → `<plugins>`
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+    </configuration>
+</plugin>
+```
+After that, reload the Maven project in IntelliJ.
+
+---
+
+## **🐝 License**
+This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## **📞 Contact**
+For any issues, feel free to open an issue on GitHub or reach out:  
+📧 Email: kishor.deshmane@iffort.com  
+🔗 GitHub: [KishorDeshmane](https://github.com/KishorDeshmane)
+
+---
+
