@@ -1,6 +1,8 @@
 package stepDefinitions;
 
 import java.util.List;
+
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import com.qa.dao.UserDAO;
 import com.qa.model.UserModel;
@@ -8,9 +10,14 @@ import com.qa.model.UserModel;
 public class TestDBClass {
 	 UserDAO dao;
 	 List<UserModel> users;
-	
-	@Test
+
+
+
+@Test
+     @Epic("Web interface")
+     @Severity(SeverityLevel.BLOCKER)
     public void testDB() {
+        Allure.issue("test xyzzzzz", "www.google.com");
         dao = new UserDAO();
         users = dao.getAllUsers();
 		 /* Print all emails */

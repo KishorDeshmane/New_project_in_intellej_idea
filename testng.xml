@@ -3,12 +3,10 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="C:/Users/HP/IdeaProjects/New_project_in_intellej_idea">
         <classes>
-            <class name="stepDefinitions.TestA001_landing_page">
-                <methods>
-                    <include name="method_name"/>
-                </methods>
+            <class name="com.testRunnersTestNG.TestNGTest">
             </class>
             <class name="stepDefinitions.TestDBClass">
+                <!-- Database or TestNg test cases will not include in the Allure reports -->
                 <methods>
                     <include name="testDB"/>
                     <include name="getUserById"/>

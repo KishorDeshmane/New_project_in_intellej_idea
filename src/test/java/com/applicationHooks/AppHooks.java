@@ -2,6 +2,7 @@ package com.applicationHooks;
 
 import java.awt.Desktop;
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.OutputType;
@@ -14,6 +15,7 @@ import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
+import org.testng.annotations.AfterSuite;
 
 public class AppHooks {
 //	private static ThreadLocal<Scenario> scenario = new ThreadLocal<>();
@@ -83,10 +85,9 @@ public class AppHooks {
 		}
 	}
 
-//	@org.testng.annotations.AfterSuite --- Currently not running need to look and study the annotation
 	@AfterAll
 	public static void generateReports() {
-		// Spark Report
+//		 Spark HTML Report
 //		try {
 //			File htmlFile = new File("Reports/SparkReport.html");
 //			if (htmlFile.exists()) {
@@ -97,17 +98,28 @@ public class AppHooks {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-System.out.println("Scenario End");
-		// Allure Report
-//		try {
-//			ProcessBuilder builder = new ProcessBuilder("C:/allure-2.32.0/bin/allure.bat", "serve", "allure-results");
-//			builder.inheritIO();
-//			Process process = builder.start();
-//			process.waitFor();
-//			System.out.println("Allure report served successfully.");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println("Failed to serve Allure report.");
-//		}
+//
+		try {
+			// Generate the Allure report as a single file
+			Process generateProcess = Runtime.getRuntime().exec(
+					"C:\\Users\\HP\\scoop\\shims\\allure.cmd generate target/allure-results --clean --single-file -o target/allure-report"
+			);
+			generateProcess.waitFor(); // Wait for process to complete
+			System.out.println("Allure report generated successfully as a single file.");
+
+			// Open the Allure report in the default browser
+			Process openProcess = Runtime.getRuntime().exec(
+					"C:\\Users\\HP\\scoop\\shims\\allure.cmd open target/allure-report"
+			);
+			openProcess.waitFor(); // Wait for process to complete
+			System.out.println("Allure report opened successfully.");
+
+		} catch (InterruptedException | IOException e) {
+			e.printStackTrace();
+		}
 	}
+
+
+
+
 }

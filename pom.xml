@@ -85,6 +85,32 @@
                     <scope>provided</scope>
                 </dependency>
              -->
+
+
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-bom</artifactId>
+            <version>2.27.0</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+
+<!-- bom and testng for allure required allure.properties and scoop.sh commands run basically need to install scoop in system-->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.27.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Wmail sender -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+
         <!-- Extent Reports -->
         <dependency>
             <groupId>tech.grasshopper</groupId>
@@ -121,7 +147,7 @@
                             <version>3.0.0-M7</version>
                             <configuration>
                                 <suiteXmlFiles>
-                                    <suiteXmlFile>testsuites/testng.xml</suiteXmlFile>
+                                    <suiteXmlFile>**/testng.xml</suiteXmlFile>
                                 </suiteXmlFiles>
                             </configuration>
                         </plugin>
@@ -182,7 +208,7 @@
                                 </suiteXmlFiles>
                             </configuration>
                         </plugin>
-
+<!-- allure bom and testng will run with scoop    OR   you can use this plug in and it will run (OPTIONAL)
                         <plugin>
                             <groupId>io.qameta.allure</groupId>
                             <artifactId>allure-maven</artifactId>
@@ -191,7 +217,7 @@
                                 <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                             </configuration>
                         </plugin>
-
+-->
                     </plugins>
                 </pluginManagement>
             </build>
