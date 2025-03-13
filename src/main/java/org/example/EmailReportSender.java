@@ -92,14 +92,10 @@ public class EmailReportSender {
             while ((bytesRead = fis.read(buffer)) != -1) {
                 zos.write(buffer, 0, bytesRead);
             }
-
             zos.closeEntry();
         }
-
         System.out.println("File zipped successfully: " + zipFilePath);
     }
-
-
 
     public static void main(String[] args) throws Exception {
 
