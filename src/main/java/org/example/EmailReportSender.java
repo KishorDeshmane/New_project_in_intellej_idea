@@ -73,7 +73,6 @@ public class EmailReportSender {
     }
 
 
-
     public static void zipLargeFile(String sourceFilePath, String zipFilePath) throws IOException {
         File sourceFile = new File(sourceFilePath);
         if (!sourceFile.exists()) {
