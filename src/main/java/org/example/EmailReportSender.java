@@ -3,6 +3,7 @@ package org.example;
 import com.qa.utility.ConfigManager;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -71,7 +72,6 @@ public class EmailReportSender {
             System.out.println("Error sending email.");
         }
     }
-
 
 
     public static void zipLargeFile(String sourceFilePath, String zipFilePath) throws IOException {

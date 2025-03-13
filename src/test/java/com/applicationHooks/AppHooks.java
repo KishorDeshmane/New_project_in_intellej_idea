@@ -20,8 +20,9 @@ import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
 
 public class AppHooks {
+    // like baseUtility class
     //	private static ThreadLocal<Scenario> scenario = new ThreadLocal<>();
-    private DriverFactory df;
+    private DriverFactory df = new DriverFactory();
     private WebDriver driver;
     public static Properties prop;
     public static Properties tdata;
@@ -37,7 +38,6 @@ public class AppHooks {
     @Before(order = 1)
     public void launchBrowser() {
         String browserName = prop.getProperty("browser");
-        df = new DriverFactory(); // like baseUtility class
         driver = df.init_driver(browserName); // like startup method
 
     }
@@ -115,9 +115,9 @@ public class AppHooks {
 
         System.out.println("****Now sharing the report to the user****");
 
-//        Zip file was the older one TODO
-        EmailReportSender.zipLargeFile("target/allure-report/index.html","target/allure-report/index.zip");
-        EmailReportSender.sendEmailWithReport("kishor.deshmane@iffort.com");
+//        Zip file was the older one TOD o
+//        EmailReportSender.zipLargeFile("target/allure-report/index.html","target/allure-report/index.zip");
+//        EmailReportSender.sendEmailWithReport("kishor.deshmane@iffort.com");
     }
 
     private static void printProcessOutput(Process process) throws IOException {

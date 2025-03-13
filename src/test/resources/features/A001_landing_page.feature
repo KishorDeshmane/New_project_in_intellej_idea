@@ -3,11 +3,11 @@ Feature: Validate Landing Page functionality
 
   @Log_in_button
   Scenario: Validate log in button functionality from the landing page
-    Given User is on the landing page as expected page title "Shield - Home1" h
+    Given User is on the landing page as expected page title "Shield - Customer - Landing Page" h
     
       @Log_in_button
   Scenario: Validate log in button functionality from the landingds page
-    Given User is on the landing page as expected page title "Shield - Home" he
+    Given User is on the landing page as expected page title "Shield - Customer - Landing Page" he
     
       #@Log_in_button
   #Scenario: Validate log in button functionality frsdfom the landing page

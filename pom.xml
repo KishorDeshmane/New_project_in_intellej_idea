@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>23</maven.compiler.source>
-        <maven.compiler.target>23</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <log4j.version>2.20.0</log4j.version>
     </properties>
     <dependencies>
@@ -103,7 +103,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--Wmail sender -->
+        <!--mail sender -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
@@ -127,7 +127,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.7.0</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -142,9 +142,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>23</source>
-                    <target>23</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
+                    <source>21</source>
+                    <target>21</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -161,7 +160,7 @@
                             <version>3.0.0-M7</version>
                             <configuration>
                                 <suiteXmlFiles>
-                                    <suiteXmlFile>**/testng.xml</suiteXmlFile>
+                                    <suiteXmlFile>testng.xml</suiteXmlFile>
                                 </suiteXmlFiles>
                             </configuration>
                         </plugin>
@@ -178,11 +177,11 @@
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-plugin</artifactId>
                             <version>3.0.0-M7</version>
-                            <configuration>
-                                <suiteXmlFiles>
-                                    <suiteXmlFile>testsuites/Purchase.xml</suiteXmlFile>
-                                </suiteXmlFiles>
-                            </configuration>
+<!--                            <configuration>-->
+<!--                                <suiteXmlFiles>-->
+<!--                                    <suiteXmlFile>testsuites/Purchase.xml</suiteXmlFile>-->
+<!--                                </suiteXmlFiles>-->
+<!--                            </configuration>-->
                         </plugin>
                     </plugins>
                 </pluginManagement>
@@ -199,7 +198,7 @@
                             <version>3.0.0-M7</version>
                             <configuration>
                                 <includes>
-                                    <include>**/TestNGTestRunner.java</include>
+                                    <include>**/TestNGTest.java</include>
                                 </includes>
                             </configuration>
                         </plugin>
@@ -216,11 +215,11 @@
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-surefire-plugin</artifactId>
                             <version>3.0.0-M7</version>
-                            <configuration>
-                                <suiteXmlFiles>
-                                    <suiteXmlFile>testsuites/ErrorValidationTests.xml</suiteXmlFile>
-                                </suiteXmlFiles>
-                            </configuration>
+<!--                            <configuration>-->
+<!--                                <suiteXmlFiles>-->
+<!--                                    <suiteXmlFile>testsuites/ErrorValidationTests.xml</suiteXmlFile>-->
+<!--                                </suiteXmlFiles>-->
+<!--                            </configuration>-->
                         </plugin>
                         <!-- allure bom and testng will run with scoop    OR   you can use this plug in and it will run (OPTIONAL)
                                                 <plugin>
