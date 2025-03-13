@@ -27,7 +27,7 @@ public class TestDBClass {
 		 }
         /* Print specific emails by index */
         System.out.println("\nPrinting Specific Indexes:");
-        if (users.size() > 0) System.out.println("First Email: " + users.get(0));  // First email
+        if (!users.isEmpty()) System.out.println("First Email: " + users.get(0));  // First email
         if (users.size() > 1) System.out.println("Second Email: " + users.get(1)); // Second email
         if (users.size() > 2) System.out.println("Third Email: " + users.get(2));  // Third email
     }

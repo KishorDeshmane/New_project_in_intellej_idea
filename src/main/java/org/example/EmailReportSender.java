@@ -1,19 +1,29 @@
 package org.example;
 
+import com.qa.utility.ConfigManager;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import java.io.File;
+
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Properties;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import static org.example.AESPasswordEncryption.decrypt;
+import static org.example.AESPasswordEncryption.encrypt;
 
 public class EmailReportSender {
 
     public static void sendEmailWithReport(String recipientEmail) throws Exception {
         // SMTP Server Settings (Example: Gmail SMTP)
         final String senderEmail = "deshmanekishor1996@gmail.com";
-        String password = AESPasswordEncryption.encrypt("Rroitilp09mM4gdGzB6lFMJj4AVmzYKYujIVmPuSFAw=","3BuCj5vNfveDS089IzTvgd9G55Iuj1wHIP8WEeZ0+q8=");
-        System.out.println(password);
-        final String senderPassword = "icww pcjd unza dmze";
-        // Use App Password (not your real password)
+        final String secret_key = "9oBcd/gN8QJTphyGmp5qgU2ZidcPtrAlvlK7CdP2zQU=";
+        final String encryptedPassword = encrypt(Objects.requireNonNull(ConfigManager.getProperty("Passcode")), secret_key);
+        System.out.println("Encrypted pass is: "+encryptedPassword);
+        final String senderPassword = decrypt(encryptedPassword, secret_key);
 
         // SMTP Properties
         Properties properties = new Properties();
@@ -35,7 +45,7 @@ public class EmailReportSender {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(senderEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject("Allure Test Report");
+            message.setSubject("Allure Test Report "+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
             // Create Email Body
             BodyPart messageBodyPart = new MimeBodyPart();
@@ -43,7 +53,7 @@ public class EmailReportSender {
 
             // Attach Allure Report (HTML File)
             MimeBodyPart attachmentPart = new MimeBodyPart();
-            File reportFile = new File("target/allure-report/index.html"); // Path to report file
+            File reportFile = new File("target/allure-report/index.zip"); // Path to report file
             attachmentPart.attachFile(reportFile);
 
             // Combine Message and Attachment
@@ -62,8 +72,39 @@ public class EmailReportSender {
         }
     }
 
+
+
+    public static void zipLargeFile(String sourceFilePath, String zipFilePath) throws IOException {
+        File sourceFile = new File(sourceFilePath);
+        if (!sourceFile.exists()) {
+            throw new FileNotFoundException("File not found: " + sourceFilePath);
+        }
+
+        try (FileOutputStream fos = new FileOutputStream(zipFilePath);
+             ZipOutputStream zos = new ZipOutputStream(fos);
+             FileInputStream fis = new FileInputStream(sourceFile)) {
+
+            ZipEntry zipEntry = new ZipEntry(sourceFile.getName());
+            zos.putNextEntry(zipEntry);
+
+            byte[] buffer = new byte[1024 * 8]; // 8KB buffer for better performance
+            int bytesRead;
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                zos.write(buffer, 0, bytesRead);
+            }
+
+            zos.closeEntry();
+        }
+
+        System.out.println("File zipped successfully: " + zipFilePath);
+    }
+
+
+
     public static void main(String[] args) throws Exception {
+
+        zipLargeFile("target/allure-report/index.html","target/allure-report/index.zip");
         sendEmailWithReport("kishor.deshmane@iffort.com");
-//        sendEmailWithReport("suman.maity@iffort.com");
+
     }
 }

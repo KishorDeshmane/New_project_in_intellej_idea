@@ -11,7 +11,7 @@ import io.cucumber.testng.CucumberOptions;
 		tags="@Landing_page", //		tags="@Super_admi or @Super_admin", //		tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:
-		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
+//		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
 		plugin = {"pretty",
 			"html:target/html_report/cucumber_reports.html",
 			"junit:target/junit_report/junit_reports.xml",
@@ -24,7 +24,7 @@ import io.cucumber.testng.CucumberOptions;
 public class TestNGTest extends AbstractTestNGCucumberTests {
 	@Override
     @DataProvider
-			(parallel = false)
+//			(parallel = false)
     public Object[][] scenarios() {
         return super.scenarios();
     }

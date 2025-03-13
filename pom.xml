@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>23</maven.compiler.source>
+        <maven.compiler.target>23</maven.compiler.target>
         <log4j.version>2.20.0</log4j.version>
     </properties>
     <dependencies>
@@ -95,7 +95,7 @@
             <scope>test</scope>
         </dependency>
 
-<!-- bom and testng for allure required allure.properties and scoop.sh commands run basically need to install scoop in system-->
+        <!-- bom and testng for allure required allure.properties and scoop.sh commands run basically need to install scoop in system-->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
@@ -111,13 +111,13 @@
         </dependency>
 
 
-        <!-- Extent Reports -->
+        <!-- Extent Reports
         <dependency>
             <groupId>tech.grasshopper</groupId>
             <artifactId>extentreports-cucumber7-adapter</artifactId>
             <version>1.10.1</version>
         </dependency>
-
+-->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-cucumber7-jvm</artifactId>
@@ -135,6 +135,19 @@
             <version>2.13.4.2</version>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>23</source>
+                    <target>23</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <profiles>
         <profile>
             <id>Regression</id>
@@ -208,16 +221,16 @@
                                 </suiteXmlFiles>
                             </configuration>
                         </plugin>
-<!-- allure bom and testng will run with scoop    OR   you can use this plug in and it will run (OPTIONAL)
-                        <plugin>
-                            <groupId>io.qameta.allure</groupId>
-                            <artifactId>allure-maven</artifactId>
-                            <version>2.11.2</version>
-                            <configuration>
-                                <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
-                            </configuration>
-                        </plugin>
--->
+                        <!-- allure bom and testng will run with scoop    OR   you can use this plug in and it will run (OPTIONAL)
+                                                <plugin>
+                                                    <groupId>io.qameta.allure</groupId>
+                                                    <artifactId>allure-maven</artifactId>
+                                                    <version>2.11.2</version>
+                                                    <configuration>
+                                                        <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                                                    </configuration>
+                                                </plugin>
+                        -->
                     </plugins>
                 </pluginManagement>
             </build>
