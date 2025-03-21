@@ -43,6 +43,7 @@ public class TestA001LandingPage {
 		System.out.println("String: "+string);
 		System.out.println("actual: "+actual);
 		Assert.assertEquals(actual, string);
+		System.out.println("Hello");
 		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		AppHooks.log("First method name");
 	}
@@ -85,7 +86,6 @@ public class TestA001LandingPage {
 //		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 //		AppHooks.log(new Object() {}.getClass().getEnclosingMethod().getName());
 //	}
-//	
 //	@Given("User is on thfghfgh")
 //	public void user_is_on_thfghfgh() {
 //	    // Write code here that turns the phrase above into concrete actions
