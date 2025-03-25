@@ -14,13 +14,12 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                bat "mvn clean test"  // Run TestNG tests (including Cucumber)
+                bat "mvn clean test"
             }
         }
 
         stage('Generate Reports') {
             steps {
-                // Collect TestNG and Cucumber reports
                 junit '**/target/surefire-reports/TEST-*.xml'
                 cucumber 'target/cucumber-reports/*.json'
             }
@@ -28,11 +27,21 @@ pipeline {
     }
 
     post {
-        success {
-            echo 'Build & Tests Passed! ✅'
-        }
-        failure {
-            echo 'Build/Test Failed! ❌ Fix the issues!'
+        always {
+            echo "Sending email notification..."
+            emailext(
+                subject: "Jenkins Build Status: ${currentBuild.currentResult} - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                Build **${currentBuild.currentResult}**: The Jenkins job '${env.JOB_NAME}' build #${env.BUILD_NUMBER}.
+
+                * Job URL: ${env.BUILD_URL}
+                * Console Output: ${env.BUILD_URL}console
+
+                Regards,  
+                Jenkins CI/CD
+                """,
+                to: "kishordeshmane321@gmail.com"
+            )
         }
     }
 }
