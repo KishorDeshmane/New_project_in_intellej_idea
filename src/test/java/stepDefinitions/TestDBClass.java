@@ -17,6 +17,7 @@ public class TestDBClass {
      @Epic("Web interface")
      @Severity(SeverityLevel.BLOCKER)
     public void testDB() {
+	    System.out.println("No user found with ID " + userId);
         Allure.issue("test xyzzzzz", "www.google.com");
         dao = new UserDAO();
         users = dao.getAllUsers();
