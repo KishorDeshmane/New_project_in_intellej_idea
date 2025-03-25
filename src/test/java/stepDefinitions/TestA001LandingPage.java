@@ -42,7 +42,7 @@ public class TestA001LandingPage {
        // Assert.assertTrue(actualsss);
 		System.out.println("String: "+string);
 		System.out.println("actual: "+actual);
-		// Assert.assertEquals(actual, string);
+		Assert.assertEquals(actual, string);
 		System.out.println("Hello");
 		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		AppHooks.log("First method name");
