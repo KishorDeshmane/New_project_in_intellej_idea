@@ -38,11 +38,11 @@ public class TestA001LandingPage {
 		DriverFactory.getDriver().get(AppHooks.prop.getProperty("base.url").split("#")[0].trim());
 		String actual = ElementUtil.eu.current_page_title(DriverFactory.getDriver());
 		System.out.println(actual);
-//		boolean actualsss = lp.user_log_in_button_is_displayed();
-//        Assert.assertTrue(actualsss);
+		boolean actualsss = lp.user_log_in_button_is_displayed();
+       Assert.assertTrue(actualsss);
 		System.out.println("String: "+string);
 		System.out.println("actual: "+actual);
-//		Assert.assertEquals(actual, string);
+		Assert.assertEquals(actual, string);
 		System.out.println("Hello");
 		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		AppHooks.log("First method name");
@@ -53,8 +53,8 @@ public class TestA001LandingPage {
 	public void user_is_on_the_landing_page_as_expected_page_title_he(String string) {
 		DriverFactory.getDriver().get(AppHooks.prop.getProperty("base.url").split("#")[0].trim());
 		String actual = ElementUtil.eu.current_page_title(DriverFactory.getDriver());
-//		lp.user_log_in_button_is_displayed();
-//		Assert.assertEquals(actual, string);
+		lp.user_log_in_button_is_displayed();
+		Assert.assertEquals(actual, string);
 		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName());
 		AppHooks.log(new Object() {}.getClass().getEnclosingMethod().getName());
 	}
