@@ -281,7 +281,6 @@ public class ElementUtil {
 	}
 
 	public String current_page_title(WebDriver driver) {
-
 		return driver.getTitle();
 	}
 
