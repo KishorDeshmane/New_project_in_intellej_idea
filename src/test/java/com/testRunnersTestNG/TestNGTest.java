@@ -16,6 +16,7 @@ import io.cucumber.testng.CucumberOptions;
 			"html:target/html_report/cucumber_reports.html",
 			"junit:target/junit_report/junit_reports.xml",
 			"json:target/json_report/json_reports.json",
+			  "json:target/cucumber-reports/Cucumber.json",
 //			"com.aventstack.chaintest.plugins.ChainTestCucumberListener:",
 //			"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
 			"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" //allure serve allure-results---Runit in terminal a allure-results folder
