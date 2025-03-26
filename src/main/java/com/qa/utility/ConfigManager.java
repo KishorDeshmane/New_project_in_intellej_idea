@@ -83,5 +83,20 @@ public class ConfigManager {
         }
         return null;
     }
-	
+
+	public static int getPropertyinInt(String key) {
+		String value = getConfigProperties().getProperty(key);
+		if (value != null) {
+			try {
+				// Remove inline comment (e.g., "30 # timeout") and trim
+				String cleanValue = value.split("#")[0].trim();
+				return Integer.parseInt(cleanValue);
+			} catch (NumberFormatException e) {
+				throw new RuntimeException("Invalid integer value for key: " + key + ", value: " + value, e);
+			}
+		}
+		throw new RuntimeException("Property not found for key: " + key);
+	}
+
+
 }

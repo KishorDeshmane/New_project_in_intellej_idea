@@ -30,9 +30,17 @@ pipeline {
         always {
             echo "Sending email notification..."
             emailext(
-                subject: "Jenkins Build Status",
-                body: "hello",
-                to: "kishordeshmane321@gmail.com"
+                subject: "Jenkins Build Status: ${currentBuild.currentResult} - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                Build **${currentBuild.currentResult}**: The Jenkins job '${env.JOB_NAME}' build #${env.BUILD_NUMBER}.
+
+                * Job URL: ${env.BUILD_URL}
+                * Console Output: ${env.BUILD_URL}console
+
+                Regards,  
+                Jenkins CI/CD
+                """,
+                to: "kishor.deshmane@iffort.com"
             )
         }
     }

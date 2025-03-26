@@ -1,6 +1,7 @@
 package com.qa.factory;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -64,7 +65,13 @@ public class DriverFactory {
     private WebDriver setupChrome(boolean isHeadless, boolean isIncognito) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-notifications", "--ignore-certificate-errors");
+        options.setAcceptInsecureCerts(true);
+        options.addArguments("--disable-notifications", "--ignore-certificate-errors","--allow-running-insecure-content","--disable-web-security");
+
+        options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
+        options.setExperimentalOption("useAutomationExtension", false);
+
+
         if (isHeadless) options.addArguments("--headless=new", "--window-size=1920,1080", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
         if (isIncognito) options.addArguments("--incognito");
         return new ChromeDriver(options);
@@ -96,10 +103,10 @@ public class DriverFactory {
         return tlDriver.get();
     }
 
-    public void quitDriver() {
-        if (tlDriver.get() != null) {
-            tlDriver.get().quit();
-            tlDriver.remove();
-        }
-    }
+//    public void quitDriver() {
+//        if (tlDriver.get() != null) {
+//            tlDriver.get().quit();
+//            tlDriver.remove();
+//        }
+//    }
 }

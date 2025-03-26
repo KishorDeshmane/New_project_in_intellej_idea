@@ -30,8 +30,6 @@ public class TestA001LandingPage {
 	 * 
 	 */
 
-
-
 	@Given("User is on the landing page as expected page title {string} h")
 	public void user_is_on_the_landing_page_as_expected_page_title_h(String string) {
 //		System.out.println(Db_test.db.);
