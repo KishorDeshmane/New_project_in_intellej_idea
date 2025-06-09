@@ -65,13 +65,10 @@ public class DriverFactory {
     private WebDriver setupChrome(boolean isHeadless, boolean isIncognito) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.setAcceptInsecureCerts(true);
-        options.addArguments("--disable-notifications", "--ignore-certificate-errors","--allow-running-insecure-content","--disable-web-security");
-
+//        options.setAcceptInsecureCerts(true);
+//        options.addArguments("--disable-notifications", "--ignore-certificate-errors","--allow-running-insecure-content","--disable-web-security");
         options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
-
-
         if (isHeadless) options.addArguments("--headless=new", "--window-size=1920,1080", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage");
         if (isIncognito) options.addArguments("--incognito");
         return new ChromeDriver(options);
@@ -80,6 +77,7 @@ public class DriverFactory {
     private WebDriver setupEdge(boolean isHeadless, boolean isIncognito) {
         WebDriverManager.edgedriver().setup();
         EdgeOptions options = new EdgeOptions();
+//        options.setAcceptInsecureCerts(true);
         options.addArguments("--disable-notifications");
         if (isHeadless) options.addArguments("--headless=new", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox", "--disable-dev-shm-usage");
         if (isIncognito) options.addArguments("-inprivate");

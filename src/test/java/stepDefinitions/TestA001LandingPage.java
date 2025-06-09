@@ -1,12 +1,11 @@
 package stepDefinitions;
 
+import com.pages.LandingPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.applicationHooks.AppHooks;
-import com.pages.Landing_page_objects;
 import com.qa.factory.DriverFactory;
 import com.qa.utility.ElementUtil;
 
@@ -17,7 +16,7 @@ public class TestA001LandingPage {
 //	String browser =ConfigManager.getProperty("browser").split("#")[0].trim();
 //	String baseUrl = ConfigManager.getProperty("base.url").split("#")[0].trim();
 	
-	private final Landing_page_objects lp = new Landing_page_objects(DriverFactory.getDriver());
+	private final LandingPage lp = new LandingPage(DriverFactory.getDriver());
 	Logger logger = LogManager.getLogger(TestA001LandingPage.class);
 
 	/**

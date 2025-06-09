@@ -61,16 +61,16 @@ public class AppHooks {
         }
     }
 
-//    @After(order = 0)
-//    public void quitBrowser() {
-//        if (driver != null) {
-//            System.out.println("Closing browser...");
-//            driver.quit();
-//            System.out.println("Browser closed.");
-//        } else {
-//            System.out.println("No active browser session found.");
-//        }
-//    }
+    @After(order = 0)
+    public void quitBrowser() {
+        if (driver != null) {
+            System.out.println("Closing browser...");
+            driver.quit();
+            System.out.println("Browser closed.");
+        } else {
+            System.out.println("No active browser session found.");
+        }
+    }
 
     @After(order = 1)
     public void takeScreenshot(Scenario scenario) {

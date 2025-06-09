@@ -12,7 +12,7 @@ public class AdminDashboard {
 
     /*
      *
-     * Log in button
+     * Admin Dashboard
      *
      */
 
@@ -21,6 +21,12 @@ public class AdminDashboard {
 
     @FindBy(xpath= "//p[text()='Super Admin']")
     private WebElement superAdminText;
+
+    @FindBy(xpath= "//p[text()='Admin']")
+    private WebElement adminText;
+
+    @FindBy(xpath= "//p[text()='Executive']")
+    private WebElement executiveText;
 
     @FindBy(xpath= "//*[text()='User logged in successfully']")
     private WebElement loggedInSuccessfullyToast;
@@ -33,12 +39,11 @@ public class AdminDashboard {
 
     public AdminDashboard(WebDriver driver) {
         if (driver == null) {
-            throw new IllegalStateException("WebDriver is null in Landing_page_objects. Ensure it is initialized before calling this constructor.");
+            throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
 
     /*
      *
@@ -47,7 +52,9 @@ public class AdminDashboard {
      */
 
     public void profileImageIsClicked() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
         loggedInSuccessfullyToast.click();
+//        ElementUtil.waitForInvisibility(driver, loggedInSuccessfullyToast);
         ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
         profileImage.click();
     }
@@ -59,5 +66,26 @@ public class AdminDashboard {
 
     public boolean superAdminTextInProfileIconDisplays() {
         return superAdminText.isDisplayed();
+    }
+
+    public boolean adminTextInProfileIconDisplays() {
+        return adminText.isDisplayed();
+    }
+
+    public boolean executiveTextInProfileIconDisplays() {
+        return executiveText.isDisplayed();
+    }
+
+    public String getTheDashboardUrl() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String DashURL = ElementUtil.eu.getCurrentPageURL(driver);
+//        String dashboardURL = ConfigManager.getProperty("base.url")+"admin/dashboard/";
+//        ElementUtil.eu.waitForExpectedURL(driver, dashURL);
+//        System.out.println(dashboardURL + "------dashboardURL");
+        return DashURL;
     }
 }

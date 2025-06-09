@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerLogin {
+public class CustomerLoginPage {
     private WebDriver driver;
 
     /*
@@ -26,9 +26,9 @@ public class CustomerLogin {
      *
      */
 
-    public CustomerLogin(WebDriver driver) {
+    public CustomerLoginPage(WebDriver driver) {
         if (driver == null) {
-            throw new IllegalStateException("WebDriver is null in Landing_page_objects. Ensure it is initialized before calling this constructor.");
+            throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }
         this.driver = driver;
         PageFactory.initElements(driver, this);

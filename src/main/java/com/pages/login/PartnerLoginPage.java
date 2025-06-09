@@ -7,20 +7,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import java.time.Duration;
+import static org.openqa.selenium.Keys.ENTER;
+import static org.openqa.selenium.Keys.TAB;
 
-import static org.openqa.selenium.Keys.*;
-
-public class AdminLogin {
+public class PartnerLoginPage {
     private WebDriver driver;
 
     /*
      *
-     * Log in button
+     * PArtner Log in page
      *
      */
 
@@ -42,7 +38,7 @@ public class AdminLogin {
     @FindBy(xpath = "//*[contains(text(), 'Please enter your password.')]")
     private WebElement pleaseEnterPasswordMesssage;
 
-    @FindBy(xpath = "//span[contains(@class, 'password-eye-icon')]")
+    @FindBy(xpath = "//i[contains(@class, 'ti-eye')]")
     private WebElement eyeIcon;
 
     /*
@@ -51,14 +47,13 @@ public class AdminLogin {
      *
      */
 
-    public AdminLogin(WebDriver driver) {
+    public PartnerLoginPage(WebDriver driver) {
         if (driver == null) {
-            throw new IllegalStateException("WebDriver is null in Landing_page_objects. Ensure it is initialized before calling this constructor.");
+            throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
 
     /*
      *
@@ -66,18 +61,28 @@ public class AdminLogin {
      *
      */
 
-
-
-    public void enterTheValidEmailIntoTheEmailField() {
+    public void enterTheValidEmailIntoTheEmailField_Partner_Admin() {
         email_field.click();
-        String email = ConfigManager.getConfigProperties().getProperty("Super_Admin_email");
-        email_field.sendKeys(email +Keys.TAB);
+        String email = ConfigManager.getConfigProperties().getProperty("Partner_Admin_email");
+        email_field.sendKeys(email);
     }
 
-    public void enterTheValidPasswordIntoThePasswordField() {
-        String password = ConfigManager.getConfigProperties().getProperty("Super_Admin_password");
-        password_Field.sendKeys(password +TAB +ENTER);
+    public void enterTheValidPasswordIntoThePasswordField_Partner_Admin() {
+        String password = ConfigManager.getConfigProperties().getProperty("password");
+        try {
+            String descryptedPassword = ElementUtil.decrypt(password);
+            password_Field.sendKeys(descryptedPassword);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    public void enterTheValidEmailIntoTheEmailField_Partner_Executive() {
+        email_field.click();
+        String email = ConfigManager.getConfigProperties().getProperty("Partner_executive_email");
+        email_field.sendKeys(email);
+    }
+
 
     public void loginButtonIsClicked(){
         login_button.click();
@@ -134,4 +139,13 @@ public class AdminLogin {
         return getPasswordFieldType().equals("text");
     }
 
+    public void redirectToTheLoginBackPage() {
+        driver.navigate().back();
+        //        driver.navigate().to(ConfigManager.getConfigProperties().getProperty("base.url").split("#")[0].trim()+"admin/login/");
+    }
+
+    public String getTheCurrentPageTitle() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, password_Field);
+        return ElementUtil.eu.current_page_title(driver);
+    }
 }

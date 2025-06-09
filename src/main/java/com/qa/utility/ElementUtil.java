@@ -115,6 +115,12 @@ public class ElementUtil {
 		wt.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
+	public static void waitForInvisibility(WebDriver driver, WebElement element) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.invisibilityOf(element));
+	}
+
+
 	public void wait_for_element_to_be_selected(WebDriver driver, int time, WebElement element) {
 		WebDriverWait wt = new WebDriverWait(driver, Duration.ofSeconds(time));
 		wt.until(ExpectedConditions.elementSelectionStateToBe(element, true));
@@ -340,7 +346,15 @@ public class ElementUtil {
 		driver.switchTo().window(tabs.get(1));
 	}
 
+	public String getCurrentPageURL(WebDriver driver) {
+		return driver.getCurrentUrl();
+	}
 
+	public String waitForExpectedURL(WebDriver driver, String expectedUrl) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		boolean isUrlMatched = wait.until(ExpectedConditions.urlToBe(expectedUrl));
+		return isUrlMatched ? driver.getCurrentUrl() : null;
+	}
 
 
 }

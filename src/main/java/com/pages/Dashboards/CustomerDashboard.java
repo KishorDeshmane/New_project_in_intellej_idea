@@ -29,7 +29,7 @@ public class CustomerDashboard {
 
     public CustomerDashboard(WebDriver driver) {
         if (driver == null) {
-            throw new IllegalStateException("WebDriver is null in Landing_page_objects. Ensure it is initialized before calling this constructor.");
+            throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }
         this.driver = driver;
         PageFactory.initElements(driver, this);
