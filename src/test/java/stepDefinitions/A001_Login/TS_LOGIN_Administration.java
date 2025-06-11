@@ -186,4 +186,14 @@ public class TS_LOGIN_Administration {
     }
 
 
+    @Then("Admin custom role user Log in with Valid Credentials")
+    public void adminCustomRoleUserLogInWithValidCredentials() {
+//        To Do
+    }
+
+    @Then("Admin custom role user Role Post Login")
+    public void adminCustomRoleUserRolePostLogin() {
+        //        To Do
+    }
+
 }
