@@ -156,4 +156,45 @@ public class TS_LOGIN_Partner {
     }
 
 
+    @Then("Partner custom role user Log in with Valid Credentials")
+    public void partnerCustomRoleUserLogInWithValidCredentials() {
+        plp.enterTheValidEmailIntoTheEmailField_Partner_Custom_Role_User();
+        plp.enterTheValidPasswordIntoThePasswordField_Partner_Admin();
+        plp.loginButtonIsClicked();
+        boolean actualValue = pDash.loggedInSuccessfullyToastIsDisplayed();
+        Assert.assertTrue(actualValue);
+        logger.info("Partner custom role user Log in with Valid Credentials");
+    }
+
+    @Then("Partner custom role user Role Post Login")
+    public void partnerCustomRoleUserRolePostLogin() {
+        pDash.profileImageIsClicked();
+        boolean actualValues;
+        actualValues = pDash.partnerCustomRoleUserTextInProfileIconDisplays();
+        assertTrue(actualValues);
+        logger.info("Partner custom role user Role Post Login");
+    }
+
+    @Then("Partner custom role user Log in with Invalid Credentials")
+    public void partnerCustomRoleUserLogInWithInvalidCredentials() {
+        plp.enterTheInvalidEmailIntoTheEmailField();
+        plp.enterTheInavalidPasswordIntoThePasswordField();
+        boolean actualValues;
+        actualValues = plp.pleaseEnterValidEmailAddressMessageIsDisplayed();
+        assertTrue(actualValues);
+        logger.info("Partner custom role user Log in with Invalid Credentials");
+    }
+
+    @Then("Partner custom role user Log in with Blank Fields")
+    public void partnerCustomRoleUserLogInWithBlankFields() {
+        ElementUtil.eu.refresh_your_page(DriverFactory.getDriver());
+        plp.enterTheBlankEmailIntoTheEmailField();
+        plp.enterTheBlankPasswordIntoThePasswordField();
+        plp.loginButtonIsClicked();
+        boolean actualValues1 = plp.pleaseEnterEmailAddressMesssageIsDisplayed();
+        assertTrue(actualValues1);
+        boolean actualValues2 = plp.pleaseEnterPasswordMesssageIsDisplayed();
+        assertTrue(actualValues2);
+        logger.info("Partner custom role user Log in with Blank Fields");
+    }
 }

@@ -148,4 +148,10 @@ public class PartnerLoginPage {
         ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, password_Field);
         return ElementUtil.eu.current_page_title(driver);
     }
+
+    public void enterTheValidEmailIntoTheEmailField_Partner_Custom_Role_User() {
+        email_field.click();
+        String email = ConfigManager.getConfigProperties().getProperty("Partner_Custom_Role_User_email");
+        email_field.sendKeys(email);
+    }
 }

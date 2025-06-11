@@ -26,6 +26,9 @@ public class PartnerDashbaord {
     @FindBy(xpath= "//p[text()='Partner Executive']")
     private WebElement partnerExecutiveText;
 
+    @FindBy(xpath= "//p[@class='main-notification-text']")
+    private WebElement partnerCustomRoleText;
+
     @FindBy(xpath= "//*[text()='User logged in successfully']")
     private WebElement loggedInSuccessfullyToast;
 
@@ -77,5 +80,10 @@ public class PartnerDashbaord {
         String DashURL = ElementUtil.eu.getCurrentPageURL(driver);
 //        System.out.println(DashURL + "------partber is looed in now then p dash URL");
         return DashURL;
+    }
+
+    public boolean partnerCustomRoleUserTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), partnerCustomRoleText);
+        return partnerCustomRoleText.isDisplayed();
     }
 }

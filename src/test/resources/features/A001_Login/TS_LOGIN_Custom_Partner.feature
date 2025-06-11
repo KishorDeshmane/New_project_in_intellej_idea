@@ -1,0 +1,19 @@
+@LOGIN_PCR
+Feature: Custom partner role user login admin end
+    @TC_LOGIN_PCR_001
+    Scenario: Verify that the partner custom role user should be able to log in to the application
+        Given User is on the Partner admin login page
+        Then Partner custom role user Log in with Valid Credentials
+        Then Partner custom role user Role Post Login
+
+    @TS_LOGIN_PCR_002
+    Scenario: Verify that the partner customer role user should not be able to log in to the application
+        Given User is on the Partner admin login page
+        Then Partner custom role user Log in with Invalid Credentials
+        Then Partner custom role user Log in with Blank Fields
+        Then Partner Password Field Masking
+
+    @TS_LOGIN_PCR_003
+    Scenario: Verify that the partner custom role user logged user back button from home should not redirect to the log in page
+        Given User is on the Partner admin login page
+        Then Partner Back button redirection

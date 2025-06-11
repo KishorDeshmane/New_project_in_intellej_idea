@@ -31,6 +31,9 @@ public class AdminDashboard {
     @FindBy(xpath= "//*[text()='User logged in successfully']")
     private WebElement loggedInSuccessfullyToast;
 
+    @FindBy(xpath = "//p[@class='main-notification-text']")
+    private WebElement customRoleText;
+
     /*
      *
      * Constructor
@@ -87,5 +90,10 @@ public class AdminDashboard {
 //        ElementUtil.eu.waitForExpectedURL(driver, dashURL);
 //        System.out.println(dashboardURL + "------dashboardURL");
         return DashURL;
+    }
+
+    public boolean adminCustomRoleUserTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), customRoleText);
+        return customRoleText.isDisplayed();
     }
 }
