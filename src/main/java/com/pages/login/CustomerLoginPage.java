@@ -1,9 +1,13 @@
 package com.pages.login;
 
+import com.qa.utility.ConfigManager;
+import com.qa.utility.ElementUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class CustomerLoginPage {
     private WebDriver driver;
@@ -14,11 +18,11 @@ public class CustomerLoginPage {
      *
      */
 
-    @FindBy(id = "")
-    private WebElement abc;
+    @FindBy(xpath = "//input[@name='mobile_number']")
+    private WebElement mobileNumberInputField;
 
-    @FindBy(id= "")
-    private WebElement asd;
+    @FindBy(xpath= "//*[text()='Get OTP']")
+    private WebElement getOtpButton;
 
     /*
      *
@@ -34,20 +38,34 @@ public class CustomerLoginPage {
         PageFactory.initElements(driver, this);
     }
 
-
     /*
      *
      *  Methods
      *
      */
 
-
-
-    public void enterTheEmailIntoTheEmailField() {
-
+    public boolean mobileNumberInputFieldIsDisplayed() {
+        return mobileNumberInputField.isDisplayed();
     }
 
-    public void enterThePasswordIntoThePasswordField() {
+    public void mobileNumberInputFieldSendNumber() {
+        mobileNumberInputField.sendKeys(ConfigManager.getProperty("Customer_Number"));
+    }
 
+    public void getOtpButtonIsClicked() {
+        getOtpButton.click();
+    }
+
+    public boolean getOtpButtonIsClickable() {
+        return getOtpButton.isEnabled();
+    }
+
+    public void redirectToTheLoginBackPage() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        ElementUtil.eu.navigate_back(driver);
     }
 }

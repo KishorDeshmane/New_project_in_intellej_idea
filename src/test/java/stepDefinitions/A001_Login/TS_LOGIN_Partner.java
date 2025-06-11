@@ -154,4 +154,6 @@ public class TS_LOGIN_Partner {
         assertTrue(actualValues2);
         logger.info("Partner executive Login with Blank Fields");
     }
+
+
 }

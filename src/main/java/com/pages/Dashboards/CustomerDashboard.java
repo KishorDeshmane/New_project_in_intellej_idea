@@ -1,5 +1,6 @@
 package com.pages.Dashboards;
 
+import com.qa.utility.ElementUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,11 +16,14 @@ public class CustomerDashboard {
      *
      */
 
-    @FindBy(id = "")
-    private WebElement abc;
+    @FindBy(xpath = "//*[normalize-space(text())='User logged in successfully']")
+    private WebElement customerLoggedInSuccessfullyToast;
 
-    @FindBy(id= "")
-    private WebElement asd;
+    @FindBy(xpath= "//*[normalize-space(text())='Booking History']")
+    private WebElement bookingHistoryTab;
+
+
+
 
     /*
      *
@@ -44,12 +48,20 @@ public class CustomerDashboard {
 
 
 
-    public void enterTheEmailIntoTheEmailField() {
-
+    public boolean customerLoggedInSuccessfullyToastIsDisplayed() {
+        return customerLoggedInSuccessfullyToast.isDisplayed();
     }
 
-    public void enterThePasswordIntoThePasswordField() {
-
+    public boolean bookingHistoryTabIsDisplayed() {
+        return bookingHistoryTab.isDisplayed();
     }
 
+    public String getTheDashboardUrl() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return ElementUtil.eu.getCurrentPageURL(driver);
+    }
 }

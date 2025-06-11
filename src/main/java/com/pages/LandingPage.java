@@ -22,6 +22,9 @@ public class LandingPage {
 	@FindBy(xpath = "//a[@href='/partner/login/']")
 	private WebElement log_in_as_partner_button;
 
+	@FindBy(xpath = "//a[@href='/login/']")
+	private WebElement log_in_as_customer_button;
+
 	
 	/* 
 	 * 
@@ -65,4 +68,9 @@ public class LandingPage {
 		System.out.println(str);
 		return str;
 	}
+
+	public void loginAsCustomerClicked() {
+		log_in_as_customer_button.click();
+	}
+
 }
