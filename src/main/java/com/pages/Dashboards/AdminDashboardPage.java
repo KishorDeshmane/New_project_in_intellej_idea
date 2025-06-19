@@ -58,10 +58,10 @@ public class AdminDashboardPage {
      */
 
     public void profileImageIsClicked() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, loggedInSuccessfullyToast);
         loggedInSuccessfullyToast.click();
 //        ElementUtil.waitForInvisibility(driver, loggedInSuccessfullyToast);
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, profileImage);
         profileImage.click();
     }
 
