@@ -1,7 +1,6 @@
 package stepDefinitions.A001_Login;
 
-import com.pages.Dashboards.AdminDashboard;
-import com.pages.Dashboards.PartnerDashbaord;
+import com.pages.Dashboards.PartnerDashbaordPage;
 import com.pages.LandingPage;
 import com.pages.login.PartnerLoginPage;
 import com.qa.factory.DriverFactory;
@@ -17,12 +16,12 @@ import org.testng.Assert;
 
 import static org.testng.Assert.assertTrue;
 
-public class TS_LOGIN_Partner {
+public class Partner_login {
 
     private final LandingPage lpo = new LandingPage(DriverFactory.getDriver());
     private  final PartnerLoginPage plp = new PartnerLoginPage(DriverFactory.getDriver());
-    private final PartnerDashbaord pDash = new PartnerDashbaord(DriverFactory.getDriver());
-    Logger logger = LogManager.getLogger(TS_LOGIN_Partner.class);
+    private final PartnerDashbaordPage pDash = new PartnerDashbaordPage(DriverFactory.getDriver());
+    Logger logger = LogManager.getLogger(Partner_login.class);
 
 
     @Given("User is on the Partner admin login page")

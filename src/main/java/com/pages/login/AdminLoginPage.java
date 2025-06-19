@@ -335,6 +335,11 @@ public class AdminLoginPage {
 
     public boolean passwordResetLinkSentMessageIsDisplayed() {
         try {
+            try {
+                Thread.sleep(1000); // Wait for the message to appear
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, passwordResetLinkSentMessage);
             return passwordResetLinkSentMessage.isDisplayed();
         } catch (NoSuchElementException e) {
@@ -352,6 +357,7 @@ public class AdminLoginPage {
 
     public boolean errorMessageForUnregisteredEmailIsDisplayed() {
         try {
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorMessageForUnregisteredEmail);
             return errorMessageForUnregisteredEmail.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;

@@ -62,8 +62,7 @@ public class LandingPage {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, log_in_as_partner_button);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, log_in_as_partner_button);
 	}
 
 	public void loginAsPartnerClicked() {

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class CustomerDashboard {
+public class CustomerDashboardPage {
 
     private WebDriver driver;
 
@@ -31,7 +31,7 @@ public class CustomerDashboard {
      *
      */
 
-    public CustomerDashboard(WebDriver driver) {
+    public CustomerDashboardPage(WebDriver driver) {
         if (driver == null) {
             throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }

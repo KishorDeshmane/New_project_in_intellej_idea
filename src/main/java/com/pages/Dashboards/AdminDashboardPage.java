@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class AdminDashboard {
+public class AdminDashboardPage {
     private WebDriver driver;
 
     /*
@@ -34,13 +34,16 @@ public class AdminDashboard {
     @FindBy(xpath = "//p[@class='main-notification-text']")
     private WebElement customRoleText;
 
+    @FindBy(xpath = "//*[contains(normalize-space(text()), 'My Profile')]")
+    private WebElement myProfileText;
+
     /*
      *
      * Constructor
      *
      */
 
-    public AdminDashboard(WebDriver driver) {
+    public AdminDashboardPage(WebDriver driver) {
         if (driver == null) {
             throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }
@@ -95,5 +98,10 @@ public class AdminDashboard {
     public boolean adminCustomRoleUserTextInProfileIconDisplays() {
         ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), customRoleText);
         return customRoleText.isDisplayed();
+    }
+
+    public void profileTextIsClickedFromPopUp() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, myProfileText);
+        myProfileText.click();
     }
 }

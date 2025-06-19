@@ -1,13 +1,11 @@
 package stepDefinitions.A001_Login;
 
-import com.pages.Dashboards.AdminDashboard;
-import com.pages.Dashboards.CustomerDashboard;
+import com.pages.Dashboards.CustomerDashboardPage;
 import com.pages.LandingPage;
 import com.pages.login.CustomerLoginPage;
 import com.pages.login.VerifyOTPPage;
 import com.qa.factory.DriverFactory;
 import com.qa.utility.ConfigManager;
-import com.qa.utility.ElementUtil;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.apache.logging.log4j.LogManager;
@@ -17,13 +15,13 @@ import org.testng.Assert;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-public class TS_LOGIN_Customer {
+public class Customer_login {
 
     private final LandingPage laP = new LandingPage(DriverFactory.getDriver());
     private final CustomerLoginPage clp = new CustomerLoginPage(DriverFactory.getDriver());
     private final VerifyOTPPage vop = new VerifyOTPPage(DriverFactory.getDriver());
-    private final CustomerDashboard cDash = new CustomerDashboard(DriverFactory.getDriver());
-    Logger logger = LogManager.getLogger(TS_LOGIN_Customer.class);
+    private final CustomerDashboardPage cDash = new CustomerDashboardPage(DriverFactory.getDriver());
+    Logger logger = LogManager.getLogger(Customer_login.class);
 
 
     @Given("User is on the Customer login page")

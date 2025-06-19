@@ -2,6 +2,8 @@ package com.qa.factory;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -65,6 +67,13 @@ public class DriverFactory {
     private WebDriver setupChrome(boolean isHeadless, boolean isIncognito) {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+
+        //Hide automation flags chorme password ask
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        options.setExperimentalOption("prefs", prefs);
+
 //        options.setAcceptInsecureCerts(true);
 //        options.addArguments("--disable-notifications", "--ignore-certificate-errors","--allow-running-insecure-content","--disable-web-security");
         options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
@@ -78,6 +87,7 @@ public class DriverFactory {
         WebDriverManager.edgedriver().setup();
         EdgeOptions options = new EdgeOptions();
 //        options.setAcceptInsecureCerts(true);
+
         options.addArguments("--disable-notifications");
         if (isHeadless) options.addArguments("--headless=new", "--disable-gpu", "--window-size=1920,1080", "--no-sandbox", "--disable-dev-shm-usage");
         if (isIncognito) options.addArguments("-inprivate");

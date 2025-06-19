@@ -11,13 +11,13 @@ import com.qa.utility.ElementUtil;
 
 import io.cucumber.java.en.Given;
 
-public class TestA001LandingPage {
+public class Landing_page {
 //	private WebDriver driver;
 //	String browser =ConfigManager.getProperty("browser").split("#")[0].trim();
 //	String baseUrl = ConfigManager.getProperty("base.url").split("#")[0].trim();
 
 	private final LandingPage lp = new LandingPage(DriverFactory.getDriver());
-	Logger logger = LogManager.getLogger(TestA001LandingPage.class);
+	Logger logger = LogManager.getLogger(Landing_page.class);
 
 	/**
 	 *

@@ -1,6 +1,6 @@
 package stepDefinitions.A001_Login;
 
-import com.pages.Dashboards.AdminDashboard;
+import com.pages.Dashboards.AdminDashboardPage;
 import com.pages.login.*;
 import com.qa.factory.DriverFactory;
 import com.qa.utility.ConfigManager;
@@ -12,17 +12,15 @@ import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import static org.openqa.selenium.Keys.TAB;
 import static org.testng.Assert.assertTrue;
 
-public class TS_LOGIN_Administration {
+public class Administration_login {
     private final AdminLoginPage lps = new AdminLoginPage(DriverFactory.getDriver());
-    private final AdminDashboard aDash = new AdminDashboard(DriverFactory.getDriver());
-    Logger logger = LogManager.getLogger(TS_LOGIN_Administration.class);
+    private final AdminDashboardPage aDash = new AdminDashboardPage(DriverFactory.getDriver());
+    Logger logger = LogManager.getLogger(Administration_login.class);
 
     @Given("User is on the admin login page")
     public void userIsOnTheAdminLoginPage() {

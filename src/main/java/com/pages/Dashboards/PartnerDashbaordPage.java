@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class PartnerDashbaord {
+public class PartnerDashbaordPage {
 
     private WebDriver driver;
 
@@ -38,7 +38,7 @@ public class PartnerDashbaord {
      *
      */
 
-    public PartnerDashbaord(WebDriver driver) {
+    public PartnerDashbaordPage(WebDriver driver) {
         if (driver == null) {
             throw new IllegalStateException("WebDriver is null in LandingPage. Ensure it is initialized before calling this constructor.");
         }
@@ -59,7 +59,12 @@ public class PartnerDashbaord {
     }
 
     public boolean loggedInSuccessfullyToastIsDisplayed(){
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, loggedInSuccessfullyToast);
         return loggedInSuccessfullyToast.isDisplayed();
     }
 
