@@ -38,6 +38,61 @@ public class AdminLoginPage {
     @FindBy(xpath = "//span[contains(@class, 'password-eye-icon')]")
     private WebElement eyeIcon;
 
+
+    @FindBy(xpath = "//a[contains(@href, '/forgot-password') and text()='Forgot password?']")
+    private WebElement forgotPasswordLink;
+
+    /*
+     *
+     * Reset Password Page
+     *
+     */
+
+    @FindBy(xpath = "//input[@id='formEmail' and @name='email' and @type='email' and @placeholder='Enter your email address']")
+    private WebElement emailFieldforgetPassword;
+
+    @FindBy(xpath = "//button[@type='submit' and text()='Request reset link']")
+    private WebElement resetPasswordButton;
+
+    @FindBy(xpath = "//div[text()='Password reset link sent successfully']")
+    private WebElement successMessage;
+
+    @FindBy(xpath = "//div[text()='Password reset link sent successfully']")
+    private WebElement confirmationMessage;
+
+    @FindBy(xpath = "//div[text()='Password reset link sent successfully']")
+    private WebElement passwordResetLinkSentMessage;
+
+    @FindBy(xpath = "//small[contains(text(), 'email is invalid')]")
+    private WebElement errorMessageForUnregisteredEmail;
+
+    @FindBy(xpath = "//small[@class='text-danger form-text' and text()='Please enter a valid email address.']")
+    private WebElement errorMessageForInvalidEmailFormat;
+
+    @FindBy(xpath = "")
+    private WebElement resetLink;
+
+    @FindBy(xpath = "")
+    private WebElement newPasswordField;
+
+    @FindBy(xpath = "")
+    private WebElement confirmPasswordField;
+
+    @FindBy(xpath = "")
+    private WebElement submitNewPassword;
+
+    @FindBy(xpath = "")
+    private WebElement passwordUpdatedSuccessfullyMessage;
+
+    @FindBy(xpath = "")
+    private WebElement successMessageAfterPasswordUpdate;
+
+    @FindBy(xpath = "")
+    private WebElement errorMessageForExpiredLink;
+
+    @FindBy(xpath = "")
+    private WebElement submitButton;
+
     /*
      *
      * Constructor
@@ -211,7 +266,6 @@ public class AdminLoginPage {
 
     public boolean isForgotPasswordLinkClickable() {
         try {
-            WebElement forgotPasswordLink = driver.findElement(By.linkText("Forgot Password?"));
             return forgotPasswordLink.isDisplayed() && forgotPasswordLink.isEnabled();
         } catch (NoSuchElementException e) {
             return false;
@@ -220,7 +274,6 @@ public class AdminLoginPage {
 
     public void clickOnForgotPasswordLink() {
         try {
-            WebElement forgotPasswordLink = driver.findElement(By.linkText("Forgot Password?"));
             if (forgotPasswordLink.isDisplayed() && forgotPasswordLink.isEnabled()) {
                 forgotPasswordLink.click();
             } else {
@@ -231,19 +284,18 @@ public class AdminLoginPage {
         }
     }
 
-    public void enterValidRegisteredEmailAddress() {
-        WebElement emailField = driver.findElement(By.id("formEmail"));
-        String registeredEmail = ConfigManager.getConfigProperties().getProperty("Registered_email");
+    public void enterValidRegisteredEmailAddress_superadmin() {
+        String registeredEmail = ConfigManager.getConfigProperties().getProperty("Super_Admin_email");
         try {
             String decryptedEmail = ElementUtil.decrypt(registeredEmail);
-            emailField.sendKeys(decryptedEmail);
+            emailFieldforgetPassword.sendKeys(decryptedEmail);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public void clickOnResetPasswordButton() {
-        WebElement resetPasswordButton = driver.findElement(By.xpath("//button[contains(text(), 'Reset Password')]"));
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, resetPasswordButton);
         if (resetPasswordButton.isDisplayed() && resetPasswordButton.isEnabled()) {
             resetPasswordButton.click();
         } else {
@@ -253,7 +305,7 @@ public class AdminLoginPage {
 
     public boolean isPasswordResetEmailSent() {
         try {
-            WebElement successMessage = driver.findElement(By.xpath("//*[contains(text(), 'Password reset email sent successfully.')]"));
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, successMessage);
             return successMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
@@ -262,12 +314,11 @@ public class AdminLoginPage {
 
     public boolean isConfirmationMessageDisplayed() {
         try {
-            WebElement confirmationMessage = driver.findElement(By.xpath("//*[contains(text(), 'Please check your email for the password reset link.')]"));
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, confirmationMessage);
             return confirmationMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
-
     }
 
     public void forgotPasswordLinkIsClicked() {
@@ -278,22 +329,14 @@ public class AdminLoginPage {
         }
     }
 
-
     public void submitForgotPasswordRequest() {
-        enterValidRegisteredEmailAddress();
         clickOnResetPasswordButton();
-        if (!isPasswordResetEmailSent()) {
-            throw new RuntimeException("Password reset email was not sent successfully.");
-        }
-        if (!isConfirmationMessageDisplayed()) {
-            throw new RuntimeException("Confirmation message is not displayed after submitting the forgot password request.");
-        }
     }
 
     public boolean passwordResetLinkSentMessageIsDisplayed() {
         try {
-            WebElement successMessage = driver.findElement(By.xpath("//*[contains(text(), 'Password reset email sent successfully.')]"));
-            return successMessage.isDisplayed();
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, passwordResetLinkSentMessage);
+            return passwordResetLinkSentMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -301,7 +344,6 @@ public class AdminLoginPage {
 
     public boolean confirmationMessageIsDisplayed() {
         try {
-            WebElement confirmationMessage = driver.findElement(By.xpath("//*[contains(text(), 'Please check your email for the password reset link.')]"));
             return confirmationMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
@@ -310,8 +352,7 @@ public class AdminLoginPage {
 
     public boolean errorMessageForUnregisteredEmailIsDisplayed() {
         try {
-            WebElement errorMessage = driver.findElement(By.xpath("//*[contains(text(), 'Email address not registered.')]"));
-            return errorMessage.isDisplayed();
+            return errorMessageForUnregisteredEmail.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -319,15 +360,13 @@ public class AdminLoginPage {
 
     public boolean errorMessageForInvalidEmailFormatIsDisplayed() {
         try {
-            WebElement errorMessage = driver.findElement(By.xpath("//*[contains(text(), 'Please enter a valid email address.')]"));
-            return errorMessage.isDisplayed();
+            return errorMessageForInvalidEmailFormat.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
     }
 
     public void resetLinkIsClicked() {
-        WebElement resetLink = driver.findElement(By.linkText("Reset Password"));
         if (resetLink.isDisplayed() && resetLink.isEnabled()) {
             resetLink.click();
         } else {
@@ -336,24 +375,20 @@ public class AdminLoginPage {
     }
 
     public void enterNewPassword(String newSecurePassword123) {
-        WebElement newPasswordField = driver.findElement(By.id("newPassword"));
         newPasswordField.sendKeys(newSecurePassword123);
     }
 
     public void confirmNewPassword(String newSecurePassword123) {
-        WebElement confirmPasswordField = driver.findElement(By.id("confirmPassword"));
         confirmPasswordField.sendKeys(newSecurePassword123 + TAB + ENTER);
     }
 
     public boolean isNewPasswordValid(String newSecurePassword123) {
-        WebElement newPasswordField = driver.findElement(By.id("newPassword"));
         String enteredPassword = newPasswordField.getAttribute("value");
         return enteredPassword.equals(newSecurePassword123);
     }
 
     public void submitNewPassword() {
-        WebElement submitButton = driver.findElement(By.xpath("//button[contains(text(), 'Submit')]"));
-        if (submitButton.isDisplayed() && submitButton.isEnabled()) {
+        if (submitNewPassword.isDisplayed() && submitNewPassword.isEnabled()) {
             submitButton.click();
         } else {
             throw new RuntimeException("Submit button is not clickable.");
@@ -362,8 +397,7 @@ public class AdminLoginPage {
 
     public boolean passwordUpdatedSuccessfullyMessageIsDisplayed() {
         try {
-            WebElement successMessage = driver.findElement(By.xpath("//*[contains(text(), 'Password updated successfully.')]"));
-            return successMessage.isDisplayed();
+            return passwordUpdatedSuccessfullyMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -371,8 +405,7 @@ public class AdminLoginPage {
 
     public boolean successMessageAfterPasswordUpdateIsDisplayed() {
         try {
-            WebElement successMessage = driver.findElement(By.xpath("//*[contains(text(), 'Password updated successfully.')]"));
-            return successMessage.isDisplayed();
+            return errorMessageForExpiredLink.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
@@ -394,11 +427,36 @@ public class AdminLoginPage {
 
     public boolean errorMessageForExpiredLinkIsDisplayed() {
         try {
-            WebElement errorMessage = driver.findElement(By.xpath("//*[contains(text(), 'This link has expired. Please request a new password reset link.')]"));
-            return errorMessage.isDisplayed();
+            return errorMessageForExpiredLink.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
         }
 
+    }
+
+    public void enterTheUnregisteredEmailIntoTheEmailField() {
+        email_field.click();
+        String unregisteredEmail = ConfigManager.getConfigProperties().getProperty("Unregistered_email");
+        email_field.sendKeys(unregisteredEmail + Keys.TAB);
+    }
+
+    public void enterValidRegisteredEmailAddress_admin() {
+    String registeredEmail = ConfigManager.getConfigProperties().getProperty("Admin_email");
+        try {
+            emailFieldforgetPassword.click();
+            emailFieldforgetPassword.sendKeys(registeredEmail);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void enterValidRegisteredEmailAddress_executive() {
+    String registeredEmail = ConfigManager.getConfigProperties().getProperty("Executive_email");
+        try {
+            emailFieldforgetPassword.click();
+            emailFieldforgetPassword.sendKeys(registeredEmail);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

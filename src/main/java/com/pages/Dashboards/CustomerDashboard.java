@@ -49,6 +49,7 @@ public class CustomerDashboard {
 
 
     public boolean customerLoggedInSuccessfullyToastIsDisplayed() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, customerLoggedInSuccessfullyToast);
         return customerLoggedInSuccessfullyToast.isDisplayed();
     }
 

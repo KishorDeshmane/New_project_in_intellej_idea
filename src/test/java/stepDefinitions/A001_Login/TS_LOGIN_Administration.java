@@ -11,8 +11,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import static org.openqa.selenium.Keys.TAB;
 import static org.testng.Assert.assertTrue;
 
 public class TS_LOGIN_Administration {
@@ -228,17 +232,11 @@ public class TS_LOGIN_Administration {
         logger.info("Admin custom role user Log in with Blank Fields");
     }
 
-
-
     /*
     *
     *
     *
     * Forget password steps
-    *
-    *
-    *
-    *
     *
     *
     *
@@ -265,7 +263,7 @@ public class TS_LOGIN_Administration {
 
     @And("enters a valid registered email address")
     public void entersAValidRegisteredEmailAddress() {
-        lps.enterTheValidEmailIntoTheEmailField_SuperAdmin();
+        lps.enterValidRegisteredEmailAddress_superadmin();
         logger.info("Super Admin enters a valid registered email address");
     }
 
@@ -290,7 +288,7 @@ public class TS_LOGIN_Administration {
 
     @And("enters an unregistered email address")
     public void entersAnUnregisteredEmailAddress() {
-        lps.enterTheInvalidEmailIntoTheEmailField();
+        lps.enterTheUnregisteredEmailIntoTheEmailField();
         logger.info("Super Admin enters an unregistered email address");
     }
 
@@ -362,7 +360,6 @@ public class TS_LOGIN_Administration {
     @Given("the Super Admin has an expired password reset link")
     public void theSuperAdminHasAnExpiredPasswordResetLink() {
         // This step would typically involve simulating an expired link.
-        // For testing purposes, we assume the link has expired.
         logger.info("Super Admin has an expired password reset link");
         // You might want to set a flag or a condition in the AdminLoginPage class to simulate this.
         lps.setExpiredLink(true); // Assuming this method exists to set the state of the link.
@@ -401,8 +398,6 @@ public class TS_LOGIN_Administration {
 
     @Then("a password reset link should be sent to the Admins email")
     public void aPasswordResetLinkShouldBeSentToTheAdminsEmail() {
-        lps.enterTheValidEmailIntoTheEmailField_Admin();
-        lps.submitForgotPasswordRequest();
         boolean actualValues = lps.passwordResetLinkSentMessageIsDisplayed();
         assertTrue(actualValues);
         logger.info("Password reset link sent to Admin's email");
@@ -410,10 +405,20 @@ public class TS_LOGIN_Administration {
 
     @Given("the Admin has received a password reset email")
     public void theAdminHasReceivedAPasswordResetEmail() {
-        // This step would typically involve checking the email inbox for a password reset email.
-        // For testing purposes, we assume the email has been received.
+        DriverFactory.getDriver().get("https://mailtrap.io/signin");
+        ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
+//        ElementUtil.eu.scroll_down_body_click(1, DriverFactory.getDriver());
+        WebElement emailmailtrap = DriverFactory.getDriver().findElement(By.xpath("//input[@type='email' and @name='user[email]' and @id='user_email']"));
+        emailmailtrap.sendKeys("kishor.deshmane@iffort.com");
+        DriverFactory.getDriver().findElement(By.xpath("//a[contains(@class, 'login_next_button') and text()='Next']")).click();
+        ElementUtil.eu.scroll_down_body_click(1, DriverFactory.getDriver());
+        WebElement passwordmailtrap = DriverFactory.getDriver().findElement(By.xpath("//input[@type='password' and @id='user_password']"));
+        passwordmailtrap.sendKeys("Test@123");
+        DriverFactory.getDriver().findElement(By.xpath("//*[@type='submit']")).click();
+
+        // Maitrap need the verification code to login, which can not beb handled.
+
         logger.info("Admin has received a password reset email");
-        // You might want to set a flag or a condition in the AdminLoginPage class to simulate this.
     }
 
     @When("the Admin clicks the reset link")
@@ -457,8 +462,6 @@ public class TS_LOGIN_Administration {
 
     @Then("a password reset link should be sent to the Executive's email")
     public void aPasswordResetLinkShouldBeSentToTheExecutiveSEmail() {
-        lps.enterTheValidEmailIntoTheEmailField_executive();
-        lps.submitForgotPasswordRequest();
         boolean actualValues = lps.passwordResetLinkSentMessageIsDisplayed();
         assertTrue(actualValues);
         logger.info("Password reset link sent to Executive's email");
@@ -491,5 +494,17 @@ public class TS_LOGIN_Administration {
     public void theExecutiveClicksTheExpiredLink() {
         lps.clickExpiredResetLink();
         logger.info("Executive clicks the expired password reset link");
+    }
+
+    @And("enters admin valid registered email address")
+    public void entersAdminValidRegisteredEmailAddress() {
+        lps.enterValidRegisteredEmailAddress_admin();
+        logger.info("Admin enters a valid registered email address");
+    }
+
+    @And("enters executive valid registered email address")
+    public void entersExecutiveValidRegisteredEmailAddress() {
+        lps.enterValidRegisteredEmailAddress_executive();
+        logger.info("Executive enters a valid registered email address");
     }
 }

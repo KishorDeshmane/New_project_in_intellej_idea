@@ -3,6 +3,7 @@ package com.pages.login;
 import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -40,6 +41,30 @@ public class PartnerLoginPage {
 
     @FindBy(xpath = "//i[contains(@class, 'ti-eye')]")
     private WebElement eyeIcon;
+
+
+    /**
+     *
+     *
+     *
+     * @param driver
+     */
+
+    @FindBy(xpath = "//a[@class='linkStyles' and contains(text(), 'Forgot password')]")
+    private WebElement forgotPasswordLink;
+
+    @FindBy(xpath = "//button[contains(text(), 'Request')]")
+    private WebElement requestlinkButton;
+
+    @FindBy(xpath = "//div[text()='Password reset link sent successfully']")
+    private WebElement requestLinkSentMessage;
+
+    @FindBy(xpath = "//small[contains(@class, 'text-danger') and contains(text(), 'email')]")
+    private WebElement errorMessageForUnregisteredEmail;
+
+    @FindBy(xpath = "//small[@class='text-danger form-text' and text()='Please enter a valid email address.']")
+    private WebElement invalidEmailErrorMessage;
+
 
     /*
      *
@@ -145,7 +170,7 @@ public class PartnerLoginPage {
     }
 
     public String getTheCurrentPageTitle() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, password_Field);
+        ElementUtil.eu.waitForPageToLoad(driver);
         return ElementUtil.eu.current_page_title(driver);
     }
 
@@ -153,5 +178,78 @@ public class PartnerLoginPage {
         email_field.click();
         String email = ConfigManager.getConfigProperties().getProperty("Partner_Custom_Role_User_email");
         email_field.sendKeys(email);
+    }
+
+    /**
+     *
+     *
+     * This method is a placeholder for the "Forgot Password" link click action.
+     *
+     *
+     *
+     *
+     */
+
+    public void forgotPasswordLinkIsClicked() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, forgotPasswordLink);
+        ElementUtil.eu.waitForPageToLoad(driver);
+        forgotPasswordLink.click();
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Forgot Password");
+    }
+
+    public void submitPasswordResetRequest() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, requestlinkButton);
+        requestlinkButton.click();
+    }
+
+    public void requestLinkSentMessageIsDisplayed() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, requestlinkButton);
+        if (!requestlinkButton.isDisplayed()) {
+            throw new RuntimeException("Request link button is not displayed after clicking 'Forgot Password' link.");
+        }
+    }
+
+    public String getRequestLinkSentMessage() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, requestLinkSentMessage);
+        if (!requestLinkSentMessage.isDisplayed()) {
+            throw new RuntimeException("Request link button is not displayed after clicking 'Forgot Password' link.");
+        }
+        System.out.println("-"+requestLinkSentMessage.getText());
+        return requestLinkSentMessage.getText();
+    }
+
+    public void enterTheunregisteredEmailIntoTheEmailField(String unregisteredEmail) {
+        email_field.click();
+        email_field.sendKeys(unregisteredEmail + Keys.TAB);
+    }
+
+    public boolean errorMessageForUnregisteredEmailIsDisplayed() {
+        try {
+            Thread.sleep(1000);
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorMessageForUnregisteredEmail);
+            return errorMessageForUnregisteredEmail.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false; // Element not found, so the message is not displayed
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getUnregisteredEmailErrorMessage() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorMessageForUnregisteredEmail);
+        return errorMessageForUnregisteredEmail.getText();
+    }
+
+    public boolean pleaseEnterValidEmailAddressMessageForgetPasswordIsDisplayed() {
+        try {
+            return invalidEmailErrorMessage.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false; // Element not found, so the message is not displayed
+        }
+    }
+
+    public String getInvalidEmailErrorMessage() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, invalidEmailErrorMessage);
+        return invalidEmailErrorMessage.getText();
     }
 }

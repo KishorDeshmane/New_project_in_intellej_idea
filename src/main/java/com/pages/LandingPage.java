@@ -56,7 +56,14 @@ public class LandingPage {
 	public void loginButtonMouseHover() {
 		ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, log_in_button);
 		ElementUtil.eu.mouseHover(driver, log_in_button);
-		ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, log_in_as_partner_button);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, log_in_as_partner_button);
 	}
 
 	public void loginAsPartnerClicked() {

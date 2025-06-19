@@ -8,7 +8,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 		features = "src/test/resources/features",
-		tags="@LOGIN_PCR", //		tags="@Super_admi or @Super_admin", //		tags="@Positive",
+//		tags="@LOGIN_PCR", //		tags="@Super_admi or @Super_admin", //		tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:
 //		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
@@ -22,6 +22,7 @@ import io.cucumber.testng.CucumberOptions;
 			"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm" //allure serve allure-results---Runit in terminal a allure-results folder
 		}
 		)
+
 public class TestNGTest extends AbstractTestNGCucumberTests {
 	@Override
     @DataProvider

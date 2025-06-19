@@ -357,4 +357,9 @@ public class ElementUtil {
 	}
 
 
+	public void waitForPageToLoad(WebDriver driver) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+		System.out.println("Page has fully loaded.");
+	}
 }
