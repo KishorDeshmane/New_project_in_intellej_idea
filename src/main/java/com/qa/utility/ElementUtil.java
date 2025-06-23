@@ -362,4 +362,10 @@ public class ElementUtil {
 		wait.until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
 		System.out.println("Page has fully loaded.");
 	}
+
+    public void wait_for_element_to_be_invisible(WebDriver driver, int i, WebElement buttonCancel) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(i));
+		wait.until(ExpectedConditions.invisibilityOf(buttonCancel));
+		System.out.println("Element is now invisible.");
+    }
 }

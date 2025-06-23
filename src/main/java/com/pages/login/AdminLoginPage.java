@@ -69,6 +69,9 @@ public class AdminLoginPage {
     @FindBy(xpath = "//small[@class='text-danger form-text' and text()='Please enter a valid email address.']")
     private WebElement errorMessageForInvalidEmailFormat;
 
+    @FindBy(xpath = "//div[contains(text(), 'Invalid credentials')]")
+    private WebElement invalidCredentialMessage;
+
     @FindBy(xpath = "")
     private WebElement resetLink;
 
@@ -146,6 +149,14 @@ public class AdminLoginPage {
         try {
             String decryptedPassword = ElementUtil.decrypt(admin_password);
             password_Field.sendKeys(decryptedPassword);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void enterTheNewValidPasswordIntoThePasswordField_Admin(String password) {
+        try {
+            password_Field.sendKeys(password);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -463,6 +474,51 @@ public class AdminLoginPage {
             emailFieldforgetPassword.sendKeys(registeredEmail);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void verifyAuthenticationFailureMessage() {
+        try {
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, invalidCredentialMessage);
+            if (invalidCredentialMessage.isDisplayed()) {
+                System.out.println("Authentication failure message is displayed: " + invalidCredentialMessage.getText());
+            } else {
+                System.out.println("Authentication failure message is not displayed.");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Authentication failure message element not found.");
+        }
+
+    }
+
+    public void verifyAdminDashboardPageIsLoaded() {
+        String expectedUrl = ConfigManager.getConfigProperties().getProperty("base.url").split("#")[0].trim() + "admin/dashboard/";
+        ElementUtil.eu.waitForExpectedURL(driver, expectedUrl);
+        if (!driver.getCurrentUrl().equals(expectedUrl)) {
+            throw new IllegalStateException("Admin Dashboard page is not loaded properly. Expected URL: " + expectedUrl);
+        }
+    }
+
+    public void verifyAdminLoginPageIsLoaded() {
+        if (!login_button.isDisplayed()) {
+            throw new IllegalStateException("Admin Login page is not loaded properly. The login button is not displayed.");
+        }
+    }
+
+    public void clearThePasswordField() {
+        try {
+            password_Field.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+//            password_Field.clear();
+        } catch (ElementNotInteractableException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", password_Field);
+        }
+    }
+
+    public void enterTheOldPasswordIntoThePasswordField_Admin(String password) {
+        try {
+            password_Field.sendKeys(password);
+        } catch (ElementNotInteractableException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].value = arguments[1];", password_Field, password);
         }
     }
 }

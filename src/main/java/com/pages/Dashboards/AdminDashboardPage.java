@@ -2,6 +2,8 @@ package com.pages.Dashboards;
 
 import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -58,15 +60,25 @@ public class AdminDashboardPage {
      */
 
     public void profileImageIsClicked() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, loggedInSuccessfullyToast);
-        loggedInSuccessfullyToast.click();
-//        ElementUtil.waitForInvisibility(driver, loggedInSuccessfullyToast);
+        try {
+            if (loggedInSuccessfullyToast.isDisplayed()) {
+                loggedInSuccessfullyToast.click();
+//                ElementUtil.eu.wait_for_element_to_be_invisible(driver, 10, loggedInSuccessfullyToast);
+            }
+        } catch (NoSuchElementException | ElementNotInteractableException e) {
+            System.out.println("loggedInSuccessfullyToast - Element not found or not clickable — ignore silently");
+        }
+        // Wait for the profile image to be clickable before clicking
         ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, profileImage);
         profileImage.click();
     }
 
+    public void profileImageIsClicked_withJAVASCRIPT() {
+        ElementUtil.eu.clickByJS(driver, profileImage);
+    }
+
     public boolean loggedInSuccessfullyToastIsDisplayed(){
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, loggedInSuccessfullyToast);
         return loggedInSuccessfullyToast.isDisplayed();
     }
 
@@ -83,16 +95,7 @@ public class AdminDashboardPage {
     }
 
     public String getTheDashboardUrl() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        String DashURL = ElementUtil.eu.getCurrentPageURL(driver);
-//        String dashboardURL = ConfigManager.getProperty("base.url")+"admin/dashboard/";
-//        ElementUtil.eu.waitForExpectedURL(driver, dashURL);
-//        System.out.println(dashboardURL + "------dashboardURL");
-        return DashURL;
+        return null;
     }
 
     public boolean adminCustomRoleUserTextInProfileIconDisplays() {
@@ -103,5 +106,20 @@ public class AdminDashboardPage {
     public void profileTextIsClickedFromPopUp() {
         ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, myProfileText);
         myProfileText.click();
+    }
+
+    public void profileTextIsClickedFromPopUp_JAVASCRIPT() {
+        ElementUtil.eu.clickByJS(driver, myProfileText);
+    }
+
+    public void logout() {
+
+    }
+
+    public void verifyAdminDashboardPageIsLoadedAfterPasswordChanges() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
+        if (!profileImage.isDisplayed()) {
+            throw new IllegalStateException("Admin Dashboard page is not loaded properly after password changes.");
+        }
     }
 }
