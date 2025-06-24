@@ -53,8 +53,40 @@ public class EmailReportSender {
             message.setSubject("Allure Test Report "+LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
             // Create Email Body
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText("Please find the attached Allure test report.");
+//            BodyPart messageBodyPart = new MimeBodyPart();
+//
+//            messageBodyPart.setText(
+//                    "Dear Team,\n\n" +
+//                            "Please find the attached Allure test report for the latest test execution.\n\n" +
+//                            "Regards,\n" +
+//                            "QA Automation Team"
+//            );
+
+
+            TestSummary summary = AllureSummaryParser.parseSummary("allure-results");
+
+            String htmlContent = String.format("""
+    <html>
+      <body>
+        <p>Dear Team,</p>
+        <p>Please find the attached <b>Allure Test Report</b> for the latest test execution.</p>
+        <h3>Execution Summary:</h3>
+        <table border="1" cellpadding="5" cellspacing="0">
+          <tr><td><b>Start Time</b></td><td>%s</td></tr>
+          <tr><td><b>End Time</b></td><td>%s</td></tr>
+          <tr><td><b>Total Duration</b></td><td>%s</td></tr>
+          <tr><td><b>Total Tests</b></td><td>%d</td></tr>
+          <tr><td><b>Passed</b></td><td style="color:green;">%d</td></tr>
+          <tr><td><b>Failed</b></td><td style="color:red;">%d</td></tr>
+        </table>
+        <p>Regards,<br/>QA Automation Team</p>
+      </body>
+    </html>
+""", summary.startTime, summary.endTime, summary.duration,
+                    summary.total, summary.passed, summary.failed);
+
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(htmlContent, "text/html");
 
             // Attach Allure Report (HTML File)
             MimeBodyPart attachmentPart = new MimeBodyPart();
