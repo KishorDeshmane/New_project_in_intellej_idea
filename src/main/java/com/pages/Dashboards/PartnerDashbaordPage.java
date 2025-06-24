@@ -69,10 +69,12 @@ public class PartnerDashbaordPage {
     }
 
     public boolean partnerAdminTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, partnerAdminText);
         return partnerAdminText.isDisplayed();
     }
 
     public boolean partnerExecutiveTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, partnerExecutiveText);
         return partnerExecutiveText.isDisplayed();
     }
 

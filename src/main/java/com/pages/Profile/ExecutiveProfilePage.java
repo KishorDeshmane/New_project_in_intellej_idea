@@ -123,6 +123,7 @@ public class ExecutiveProfilePage {
      */
 
     public void verifyExecutiveProfilePageIsLoaded() {
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Admin Profile");
         String pageTitle = ElementUtil.eu.current_page_title(driver);
         Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Executive Profile page is not loaded");
     }

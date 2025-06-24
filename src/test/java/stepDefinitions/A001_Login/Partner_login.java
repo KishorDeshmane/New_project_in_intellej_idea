@@ -316,7 +316,7 @@ public class Partner_login {
         lpo.loginAsPartnerClicked();
         String currentTitle = plp.getTheCurrentPageTitle();
         ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
-        Assert.assertEquals(currentTitle, "Shield - Partner Sign-In");
+        Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
     }
 
     @And("the partner executive clicks on Forgot Password")

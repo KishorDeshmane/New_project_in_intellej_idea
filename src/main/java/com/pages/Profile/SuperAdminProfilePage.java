@@ -110,6 +110,7 @@ public class SuperAdminProfilePage {
 
     public void verifySuperAdminProfilePageIsLoaded() {
         String pageTitle = ElementUtil.eu.current_page_title(driver);
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Admin Profile");
         Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Super Admin Profile page is not loaded");
     }
 

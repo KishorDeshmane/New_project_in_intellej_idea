@@ -84,6 +84,7 @@ public class AdminDashboardPage {
     }
 
     public boolean superAdminTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, superAdminText);
         return superAdminText.isDisplayed();
     }
 
