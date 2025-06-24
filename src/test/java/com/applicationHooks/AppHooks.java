@@ -91,48 +91,11 @@ public class AppHooks {
     public static void generateAndOpenReports() throws Exception {
         AllureReportHelper.generateAllureSupportFiles();
 
-        try {
-//            // Generate the Allure report as a single file
-            Process generateProcess = Runtime.getRuntime().exec(
-                    "C:\\Users\\HP\\scoop\\shims\\allure.cmd generate target/allure-results --clean --single-file -o target/allure-report"
-            );
-            printProcessOutput(generateProcess);
-            generateProcess.waitFor(); // Wait for process to complete
-            System.out.println("Allure report generated successfully as a single file.");
-
-//            Open the Allure report in the default browser
-//            Opening report creating problem for the sending the report need to work on this
-//            Process openProcess = Runtime.getRuntime().exec(
-//                    "C:\\Users\\HP\\scoop\\shims\\allure.cmd open target/allure-report"
-//            );
-//            printProcessOutput(openProcess);
-//            openProcess.waitFor(); // Wait for process to complete
-//            System.out.println("Allure report opened successfully.");
-
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
-        Thread.sleep(2000);
-        System.out.println("****Now sharing the report to the user****");
-
-//        Zip file was the older one TOD o
-        EmailReportSender.zipLargeFile("target/allure-report/index.html","target/allure-report/index.zip");
+//        Zip file was the older one TO dO
+        EmailReportSender.zipLargeFile("target/allure-report/index.html", "target/allure-report/index.zip");
         EmailReportSender.sendEmailWithReport("kishor.deshmane@iffort.com");
     }
-
-    private static void printProcessOutput(Process process) throws IOException {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                 BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    System.out.println("OUTPUT: " + line);
-                }
-                while ((line = errorReader.readLine()) != null) {
-                    System.err.println("ERROR: " + line);
-                }
-            }
-        }
-    }
+}
 
 
 //    @AfterAll(order = 0)

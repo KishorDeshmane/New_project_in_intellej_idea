@@ -21,7 +21,7 @@ public class AllureReportHelper {
         createExecutorJson();
         createCategoriesJson();
         copyHistoryFromLastRun();         // ✅ Add this before generating the report
-//        generateAllureReport();
+        generateAllureReport();
     }
 
     public static void createEnvironmentProperties() {
@@ -203,60 +203,6 @@ public class AllureReportHelper {
         }
     }
 
-    public static void generateAllureReport() {
-        try {
-            // Print Allure version
-            System.out.println("🔍 Checking Allure CLI version...");
-            Process versionCheck = new ProcessBuilder("allure", "--version").start();
-            printProcessOutput(versionCheck);
-            versionCheck.waitFor();
-
-            // Generate single-file report
-            System.out.println("🚀 Generating Allure report with --single-file...");
-            ProcessBuilder builder = new ProcessBuilder(
-                    "allure",
-                    "generate", RESULTS_DIR,
-                    "--clean",
-                    "--single-file",
-                    "-o", REPORT_DIR
-            );
-            builder.redirectErrorStream(true);
-            Process process = builder.start();
-
-            printProcessOutput(process);
-            int exitCode = process.waitFor();
-
-            if (exitCode == 0) {
-                System.out.println("✅ Allure report generated successfully.");
-                System.out.println("📂 Check: " + REPORT_DIR + "/index.html");
-
-                // Confirm if it’s actually a single file
-                if (isSingleFile(REPORT_DIR + "/index.html")) {
-                    System.out.println("🎯 Report is in true single-file format.");
-                } else {
-                    System.err.println("⚠️ Report is not in single-file format! Verify Allure version (>=2.21.0).");
-                }
-
-            } else {
-                System.err.println("❌ Allure report generation failed. Exit code: " + exitCode);
-            }
-
-        } catch (IOException | InterruptedException e) {
-            System.err.println("❌ Exception during Allure report generation: " + e.getMessage());
-        }
-    }
-
-    private static boolean isSingleFile(String indexHtmlPath) {
-        try {
-            String content = new String(Files.readAllBytes(Paths.get(indexHtmlPath)));
-            return content.contains("window.__ALLURE_DATA__");
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-
-
     private static void writeToFile(String path, String content, String label) {
         try {
             ensureDirExists(Paths.get(path).getParent().toString());
@@ -267,19 +213,49 @@ public class AllureReportHelper {
         }
     }
 
-    private static void printProcessOutput(Process process) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println("ALLURE >> " + line);
-            }
-        }
-    }
-
     private static void ensureDirExists(String dirPath) throws IOException {
         File dir = new File(dirPath);
         if (!dir.exists() && !dir.mkdirs()) {
             throw new IOException("Unable to create directory: " + dirPath);
+        }
+    }
+
+    public static void generateAllureReport() {
+        try {
+            Process generateProcess = Runtime.getRuntime().exec(
+                    "C:\\Users\\HP\\scoop\\shims\\allure.cmd generate target/allure-results --clean --single-file -o target/allure-report"
+            );
+            printProcessOutput(generateProcess);
+            generateProcess.waitFor();
+            System.out.println("Allure report generated successfully as a single file.");
+
+//            Open the Allure report in the default browser Opening report creating problem for the sending the report need to work on this
+//            Process openProcess = Runtime.getRuntime().exec("C:\\Users\\HP\\scoop\\shims\\allure.cmd open target/allure-report");
+//            printProcessOutput(openProcess);
+//            openProcess.waitFor();
+//            System.out.println("Allure report opened successfully.");
+
+        } catch (InterruptedException | IOException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        //System.out.println("Now sharing the report to the user via email.");
+    }
+
+    private static void printProcessOutput(Process process) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+             BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println("OUTPUT: " + line);
+            }
+            while ((line = errorReader.readLine()) != null) {
+                System.err.println("ERROR: " + line);
+            }
         }
     }
 }
