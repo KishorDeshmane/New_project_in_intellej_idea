@@ -1,4 +1,4 @@
-@LOGIN_PCR @TC_LOGIN_PCR_001 @TS_LOGIN_PCR_002 @TS_LOGIN_PCR_003
+@LOGIN_PCR
 Feature: Custom partner role user login admin end
 
     Background:

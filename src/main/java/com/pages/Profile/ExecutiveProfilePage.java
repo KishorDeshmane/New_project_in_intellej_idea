@@ -124,7 +124,7 @@ public class ExecutiveProfilePage {
 
     public void verifyExecutiveProfilePageIsLoaded() {
         String pageTitle = ElementUtil.eu.current_page_title(driver);
-        Assert.assertEquals(pageTitle, "Shield - Profile", "Executive Profile page is not loaded");
+        Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Executive Profile page is not loaded");
     }
 
     public void verifyAllExecutiveRequiredProfileFieldsAreVisible() {

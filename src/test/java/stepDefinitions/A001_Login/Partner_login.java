@@ -38,7 +38,7 @@ public class Partner_login {
         lpo.loginButtonMouseHover();
         lpo.loginAsPartnerClicked();
         String currentTitle = plp.getTheCurrentPageTitle();
-        Assert.assertEquals(currentTitle, "Shield - Partner Sign-In");
+        Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
     }
 
     @Then("Partner Admin Login with Valid Credentials")
@@ -221,7 +221,7 @@ public class Partner_login {
         lpo.loginAsPartnerClicked();
         String currentTitle = plp.getTheCurrentPageTitle();
         ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
-        Assert.assertEquals(currentTitle, "Shield - Partner Sign-In");
+        Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
     }
 
 

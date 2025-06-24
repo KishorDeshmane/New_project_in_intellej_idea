@@ -96,6 +96,7 @@ public class Administration_login {
         lps.enterTheValidPasswordIntoThePasswordField_SuperAdmin();
         lps.loginButtonIsClicked();
         aDash.loggedInSuccessfullyToastIsDisplayed();
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(DriverFactory.getDriver(), 10, "Shield - Admin Dashboard");
         String currentURL = aDash.getDashboardUrl();
         System.out.println(currentURL +"----current DASH URL");
         lps.redirectToTheLoginBackPage();

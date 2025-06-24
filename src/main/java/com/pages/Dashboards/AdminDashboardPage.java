@@ -88,10 +88,12 @@ public class AdminDashboardPage {
     }
 
     public boolean adminTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, adminText);
         return adminText.isDisplayed();
     }
 
     public boolean executiveTextInProfileIconDisplays() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, executiveText);
         return executiveText.isDisplayed();
     }
 
