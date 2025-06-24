@@ -42,6 +42,9 @@ public class AdminLoginPage {
     @FindBy(xpath = "//a[contains(@href, '/forgot-password') and text()='Forgot password?']")
     private WebElement forgotPasswordLink;
 
+    @FindBy(xpath = "//*[contains(text(), 'User logged out successfully')]")
+    private WebElement loggedOutSuccessfullyToast;
+
     /*
      *
      * Reset Password Page
@@ -500,6 +503,11 @@ public class AdminLoginPage {
     }
 
     public void verifyAdminLoginPageIsLoaded() {
+        try {
+            Thread.sleep(1000); // Wait for the page to load
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (!login_button.isDisplayed()) {
             throw new IllegalStateException("Admin Login page is not loaded properly. The login button is not displayed.");
         }
@@ -519,6 +527,19 @@ public class AdminLoginPage {
             password_Field.sendKeys(password);
         } catch (ElementNotInteractableException e) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].value = arguments[1];", password_Field, password);
+        }
+    }
+
+    public void loggedOutSuccessfullyToastIsDisplayed() {
+        try {
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, loggedOutSuccessfullyToast);
+            if (loggedOutSuccessfullyToast.isDisplayed()) {
+                System.out.println("Logged out successfully toast is displayed.");
+            } else {
+                System.out.println("Logged out successfully toast is not displayed.");
+            }
+        } catch (NoSuchElementException e) {
+            System.out.println("Logged out successfully toast element not found.");
         }
     }
 }

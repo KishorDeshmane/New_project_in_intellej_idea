@@ -304,7 +304,8 @@ public class AdminProfilePage {
     public void clickChangePasswordLink() {
         ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, button_Change_Password);
         if (button_Change_Password.isDisplayed()) {
-            button_Change_Password.click();
+            ElementUtil.eu.clickByJS(driver, button_Change_Password);
+//            button_Change_Password.click();
         } else {
             throw new IllegalStateException("Change Password button is not displayed");
         }

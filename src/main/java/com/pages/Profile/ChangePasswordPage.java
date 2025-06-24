@@ -143,6 +143,11 @@ public class ChangePasswordPage {
 
     public void enterNewPassword(String newPassword) {
 //        ElementUtil.eu.waitForPageToLoad(driver);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         input_NewPassword.sendKeys(newPassword);
     }
 

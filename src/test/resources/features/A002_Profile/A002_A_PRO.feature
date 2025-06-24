@@ -76,22 +76,7 @@ Feature: Admin profile
     And Admin navigates to the Change Password page
     Then Current Password, New Password, and Confirm Password fields should be visible
 
-  @TC_PRO_A_013
-  Scenario: Admin changes password with valid inputs
-    And Admin navigates to the Change Password page
-    When Admin enters valid current password
-    And Admin enters a strong new password
-    And Admin confirms the new password correctly
-    Then Password should be updated successfully
-    And Admin should see a success message
-    And Admin should be redirected back to the admin login page
-
-    When Admin tries to login using the old password
-    Then Admin should see an authentication failure message
-
-    When Admin logs in with the new password
-    Then Admin should be logged in successfully with new password
-    Then Admin update the Older saved password in the database
+#  @TC_PRO_A_013 Run after TC_PRO_A Last test cases triggered
 
   @TC_PRO_A_014
   Scenario: Admin enters incorrect current password
@@ -166,5 +151,88 @@ Feature: Admin profile
   Scenario: Password fields are masked
     And Admin navigates to the Change Password page
     Then All password input fields should be masked (displayed as dots or asterisks)
+
+
+
+
+
+  @TC_PRO_A_025
+  Scenario: Admin verifies presence of Logout option
+    Then Admin should see the Logout option in the navigation menu
+
+  @TC_PRO_A_026
+  Scenario: Admin successfully logs out from the system
+    When Admin clicks the Logout option
+    Then Admin should be redirected to the login page
+    And Admin should see a logout success message
+
+  @TC_PRO_A_027
+  Scenario: Admin session is terminated after logout
+    When Admin clicks the Logout option
+    And Admin tries to navigate to the dashboard using browser back button
+    Then Admin should be redirected to the login page
+
+  @TC_PRO_A_028
+  Scenario: Admin token and session storage are cleared on logout
+    When Admin clicks the Logout option
+    Then Admin's token and session data should be removed from local storage
+
+  @TC_PRO_A_029
+  Scenario: Admin attempts to access dashboard without logging in
+    When Admin clicks the Logout option
+    When Admin directly accesses the dashboard URL
+    Then Admin should be redirected to the login page
+
+  @TC_PRO_A_030
+  Scenario: Admin verifies UI of the Logout button
+    Then Admin should see a visible and properly styled Logout button in the top-right corner
+
+#  @TC_PRO_A_031
+#  Scenario: Admin is auto-logged out after session timeout
+#    Given Admin is idle for the configured session timeout duration
+#    Then Admin should be auto-logged out
+#    And Admin should see a session timeout message on the login page
+
+#  @TC_PRO_A_032
+#  Scenario: Admin cancels logout from confirmation prompt
+#    When Admin clicks the Logout button
+#    And a logout confirmation dialog is shown
+#    And Admin clicks the Cancel button
+#    Then Admin should remain on the dashboard page
+
+#  @TC_PRO_A_033
+#  Scenario: Admin logs out from all devices if feature is supported
+#    When Admin selects "Logout from all devices" option
+#    Then Admin should be logged out from all active sessions
+#    And Admin should receive a confirmation message
+
+#  @TC_PRO_A_034
+#  Scenario: Admin triggers API call upon logout
+#    When Admin clicks the Logout option
+#    Then an API call should be made to the logout endpoint
+#    And Admin should receive a 200 OK response from the server
+
+
+
+
+
+
+
+  @TC_PRO_A_013
+  Scenario: Admin changes password with valid inputs
+    And Admin navigates to the Change Password page
+    When Admin enters valid current password
+    And Admin enters a strong new password
+    And Admin confirms the new password correctly
+    Then Password should be updated successfully
+    And Admin should see a success message
+    And Admin should be redirected back to the admin login page
+
+    When Admin tries to login using the old password
+    Then Admin should see an authentication failure message
+
+    When Admin logs in with the new password
+    Then Admin should be logged in successfully with new password
+    Then Admin update the Older saved password in the database
 
 

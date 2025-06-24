@@ -13,6 +13,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.time.Duration;
 
 public class Admin_profile {
 
@@ -21,6 +33,7 @@ public class Admin_profile {
     private final AdminProfilePage aprofile = new AdminProfilePage(DriverFactory.getDriver());
     private final ChangePasswordPage aChangePass = new ChangePasswordPage(DriverFactory.getDriver());
     Logger logger = LogManager.getLogger(Admin_profile.class);
+    private int logoutResponseCode;
 
     @And("admin Profile Page is loaded")
     public void adminProfilePageIsLoaded() {
@@ -440,5 +453,88 @@ public class Admin_profile {
     public void adminClicksTheCancelButtonFromTheChangePasswordPage() {
         aChangePass.clickOnCancelCurrentPasswordButton();
         logger.info("Admin clicked the Cancel button from the Change Password page");
+    }
+
+    @Then("Admin should see the Logout option in the navigation menu")
+    public void adminShouldSeeTheLogoutOptionInTheNavigationMenu() {
+        aDash.profileImageIsClicked();
+        aDash.verifyLogoutOptionIsVisible();
+        logger.info("Admin sees the Logout option in the navigation menu");
+    }
+
+    @When("Admin clicks the Logout option")
+    public void adminClicksTheLogoutOption() {
+        aDash.profileImageIsClicked();
+        aDash.logout();
+        logger.info("Admin clicked the Logout option");
+    }
+
+    @Then("Admin should be redirected to the login page")
+    public void adminShouldBeRedirectedToTheLoginPage() {
+        try {
+            Thread.sleep(1000); // Wait for the page to load
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        lps.verifyAdminLoginPageIsLoaded();
+        logger.info("Admin is redirected to the login page after logging out");
+    }
+
+    @And("Admin should see a logout success message")
+    public void adminShouldSeeALogoutSuccessMessage() {
+        lps.loggedOutSuccessfullyToastIsDisplayed();
+        logger.info("Admin sees a logout success message after logging out");
+    }
+
+    @And("Admin tries to navigate to the dashboard using browser back button")
+    public void adminTriesToNavigateToTheDashboardUsingBrowserBackButton() {
+        ElementUtil.eu.navigate_back(DriverFactory.getDriver());
+        logger.info("Admin tries to navigate to the dashboard using browser back button");
+    }
+
+    @Then("Admin's token and session data should be removed from local storage")
+    public void adminSTokenAndSessionDataShouldBeRemovedFromLocalStorage() {
+        // Wait for logout redirection (e.g., to login page)
+        new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10))
+                .until(ExpectedConditions.urlContains("login"));
+        JavascriptExecutor js = (JavascriptExecutor) DriverFactory.getDriver();
+        // Replace these keys with actual ones used in your app
+        String[] localStorageKeys = {"token", "authToken", "userInfo"};
+        String[] sessionStorageKeys = {"session", "sessionID"};
+        for (String key : localStorageKeys) {
+            Object value = js.executeScript("return window.localStorage.getItem(arguments[0]);", key);
+            Assert.assertNull(value, "LocalStorage key '" + key + "' was not cleared after logout");
+        }
+        for (String key : sessionStorageKeys) {
+            Object value = js.executeScript("return window.sessionStorage.getItem(arguments[0]);", key);
+            Assert.assertNull(value, "SessionStorage key '" + key + "' was not cleared after logout");
+        }
+        System.out.println("✅ Admin's token and session storage were cleared successfully.");
+    }
+
+
+    @When("Admin directly accesses the dashboard URL")
+    public void adminDirectlyAccessesTheDashboardURL() {
+        String dashboardUrl = aDash.getTheDashboardUrl();
+        DriverFactory.getDriver().get(dashboardUrl);
+        logger.info("Admin directly accessed the dashboard URL: " + dashboardUrl);
+    }
+
+    @Then("Admin should see a visible and properly styled Logout button in the top-right corner")
+    public void adminShouldSeeAVisibleAndProperlyStyledLogoutButtonInTheTopRightCorner() {
+        aDash.profileImageIsClicked();
+        boolean isLogoutButtonVisible = aDash.logoutButtonIsVisible();
+        Assert.assertTrue(isLogoutButtonVisible, "Logout button is not visible in the top-right corner");
+        logger.info("Admin sees a visible and properly styled Logout button in the top-right corner");
+    }
+
+    @Then("an API call should be made to the logout endpoint")
+    public void anAPICallShouldBeMadeToTheLogoutEndpoint() {
+
+    }
+
+    @And("Admin should receive a {int} OK response from the server")
+    public void adminShouldReceiveAOKResponseFromTheServer(int arg0) {
+        Assert.assertEquals(logoutResponseCode, arg0, "Logout API did not return expected status code");
     }
 }

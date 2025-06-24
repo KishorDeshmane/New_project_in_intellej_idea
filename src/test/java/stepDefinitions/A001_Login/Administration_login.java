@@ -96,7 +96,7 @@ public class Administration_login {
         lps.enterTheValidPasswordIntoThePasswordField_SuperAdmin();
         lps.loginButtonIsClicked();
         aDash.loggedInSuccessfullyToastIsDisplayed();
-        String currentURL = aDash.getTheDashboardUrl();
+        String currentURL = aDash.getDashboardUrl();
         System.out.println(currentURL +"----current DASH URL");
         lps.redirectToTheLoginBackPage();
         String expectedURL =

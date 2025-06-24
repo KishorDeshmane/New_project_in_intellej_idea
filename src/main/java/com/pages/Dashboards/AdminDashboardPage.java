@@ -39,6 +39,8 @@ public class AdminDashboardPage {
     @FindBy(xpath = "//*[contains(normalize-space(text()), 'My Profile')]")
     private WebElement myProfileText;
 
+    @FindBy(xpath = "//*[normalize-space(text())='Sign Out']")
+    private WebElement signOutText;
     /*
      *
      * Constructor
@@ -63,14 +65,13 @@ public class AdminDashboardPage {
         try {
             if (loggedInSuccessfullyToast.isDisplayed()) {
                 loggedInSuccessfullyToast.click();
-//                ElementUtil.eu.wait_for_element_to_be_invisible(driver, 10, loggedInSuccessfullyToast);
             }
         } catch (NoSuchElementException | ElementNotInteractableException e) {
             System.out.println("loggedInSuccessfullyToast - Element not found or not clickable — ignore silently");
         }
-        // Wait for the profile image to be clickable before clicking
         ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, profileImage);
-        profileImage.click();
+        ElementUtil.eu.clickByJS(driver, profileImage);
+//        profileImage.click();
     }
 
     public void profileImageIsClicked_withJAVASCRIPT() {
@@ -95,7 +96,11 @@ public class AdminDashboardPage {
     }
 
     public String getTheDashboardUrl() {
-        return null;
+        return "http://shield.iffort.com/admin/dashboard/";
+    }
+
+    public String getDashboardUrl() {
+        return driver.getCurrentUrl();
     }
 
     public boolean adminCustomRoleUserTextInProfileIconDisplays() {
@@ -113,13 +118,30 @@ public class AdminDashboardPage {
     }
 
     public void logout() {
-
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, signOutText);
+        signOutText.click();
     }
 
     public void verifyAdminDashboardPageIsLoadedAfterPasswordChanges() {
         ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
         if (!profileImage.isDisplayed()) {
             throw new IllegalStateException("Admin Dashboard page is not loaded properly after password changes.");
+        }
+    }
+
+    public void verifyLogoutOptionIsVisible() {
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, signOutText);
+        if (!signOutText.isDisplayed()) {
+            throw new IllegalStateException("Logout option is not visible in the Admin Dashboard.");
+        }
+    }
+
+    public boolean logoutButtonIsVisible() {
+        try {
+            ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, signOutText);
+            return signOutText.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false; // If the element is not found, return false
         }
     }
 }
