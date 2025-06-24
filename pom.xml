@@ -95,6 +95,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
         <!-- bom and testng for allure required allure.properties and scoop.sh commands run basically need to install scoop in system-->
         <dependency>
             <groupId>io.qameta.allure</groupId>

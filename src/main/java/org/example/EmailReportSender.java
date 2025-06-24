@@ -21,9 +21,13 @@ public class EmailReportSender {
     public static void sendEmailWithReport(String recipientEmail) throws Exception {
         // SMTP Server Settings (Example: Gmail SMTP)
         final String senderEmail = "deshmanekishor1996@gmail.com";
+        final String senderName = "Kishor Deshmane";
         final String secret_key = "9oBcd/gN8QJTphyGmp5qgU2ZidcPtrAlvlK7CdP2zQU=";
+
+//      final String decryptedPassword = decrypt(passwordKey, "9oBcd/gN8QJTphyGmp5qgU2ZidcPtrAlvlK7CdP2zQU=");
+
         final String encryptedPassword = encrypt(Objects.requireNonNull(ConfigManager.getProperty("Passcode")), secret_key);
-        System.out.println("Encrypted pass is: "+encryptedPassword);
+//        System.out.println("Encrypted pass is: "+encryptedPassword);
         final String senderPassword = decrypt(encryptedPassword, secret_key);
 
         // SMTP Properties
@@ -65,7 +69,7 @@ public class EmailReportSender {
 
             // Send Email
             Transport.send(message);
-            System.out.println("Email sent successfully with Allure report!");
+            System.out.println("Mail sent successfully with Allure report!");
 
         } catch (Exception e) {
             e.printStackTrace();
