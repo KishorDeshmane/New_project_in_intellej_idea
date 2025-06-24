@@ -37,6 +37,7 @@ public class Partner_login {
 
         lpo.loginButtonMouseHover();
         lpo.loginAsPartnerClicked();
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(DriverFactory.getDriver(), 10,"Shield - Partner Sign In");
         String currentTitle = plp.getTheCurrentPageTitle();
         Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
     }
