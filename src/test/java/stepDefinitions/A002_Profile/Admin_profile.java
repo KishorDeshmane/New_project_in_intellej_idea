@@ -260,18 +260,17 @@ public class Admin_profile {
 
     @When("Admin enters a current password")
     public void adminEntersACurrentPassword() {
-        ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
         try {
             aChangePass.enterCurrentPassword(ElementUtil.decrypt(ConfigManager.getProperty("password")));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        aChangePass.clickOnSubmitCurrentPasswordButton();
         logger.info("Admin entered a new password");
     }
 
     @And("Admin enters a different value in confirm password")
     public void adminEntersADifferentValueInConfirmPassword() {
+        aChangePass.clickOnSubmitCurrentPasswordButton();
         aChangePass.enterNewPassword("NewPassword@123");
         aChangePass.enterConfirmPassword("DifferentPassword@123");
         logger.info("Admin entered a different value in confirm password");
@@ -286,6 +285,7 @@ public class Admin_profile {
 
     @When("Admin confirms a weak new password")
     public void AdminConfirmsAWeakNewPassword() {
+        aChangePass.clickOnSubmitCurrentPasswordButton();
         aChangePass.enterNewPassword("12345ppppp");
         aChangePass.enterConfirmPassword("12345ppppp");
         logger.info("Admin entered a weak new password");
@@ -300,6 +300,7 @@ public class Admin_profile {
 
     @When("Admin leaves one or more password fields blank")
     public void adminLeavesOneOrMorePasswordFieldsBlank() {
+        aChangePass.clickOnSubmitCurrentPasswordButton();
         aChangePass.clearNewPasswordField();
         aChangePass.clearConfirmPasswordField();
         logger.info("Admin left one or more password fields blank");
@@ -314,6 +315,7 @@ public class Admin_profile {
 
     @When("Admin enters a new password without required complexity \\(e.g., no uppercase or special characters)")
     public void adminEntersANewPasswordWithoutRequiredComplexityEGNoUppercaseOrSpecialCharacters() {
+        aChangePass.clickOnSubmitCurrentPasswordButton();
         aChangePass.enterNewPassword("weakpassword");
         aChangePass.enterConfirmPassword("weakpassword");
         logger.info("Admin entered a new password without required complexity");
@@ -328,6 +330,7 @@ public class Admin_profile {
 
     @When("Admin enters a password shorter than 8 characters")
     public void adminEntersAPasswordShorterThanCharacters() {
+        aChangePass.clickOnSubmitCurrentPasswordButton();
         aChangePass.enterNewPassword("short");
         aChangePass.enterConfirmPassword("short");
         logger.info("Admin entered a password shorter than 8 characters");
@@ -474,7 +477,7 @@ public class Admin_profile {
     public void adminShouldBeRedirectedToTheLoginPage() {
         ElementUtil.eu.wait_for_to_be_title_is_displayed(
                 DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"),
-                ConfigManager.getProperty("admin_sign_in"));
+                ConfigManager.getTestDataProperties().getProperty("admin_sign_in"));
         lps.verifyAdminLoginPageIsLoaded();
         logger.info("Admin is redirected to the login page after logging out");
     }

@@ -210,11 +210,9 @@ public class PartnerLoginPage {
     }
 
     public String getRequestLinkSentMessage() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), requestLinkSentMessage);
-        if (!requestLinkSentMessage.isDisplayed()) {
-            throw new RuntimeException("Request link button is not displayed after clicking 'Forgot Password' link.");
-        }
-        System.out.println("-"+requestLinkSentMessage.getText());
+        ElementUtil.eu.wait_for_element_to_be_displayed(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), requestLinkSentMessage);
+//        System.out.println("-"+requestLinkSentMessage.getText());
         return requestLinkSentMessage.getText();
     }
 

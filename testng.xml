@@ -2,6 +2,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="All Test Suite" parallel="classes" thread-count="2">
+
+<!--    <listeners>-->
+<!--        <listener class-name="com.qa.utility.RetryListener"/>-->
+<!--    </listeners>-->
+
     <test verbose="2" preserve-order="true" name="C:/Users/HP/IdeaProjects/New_project_in_intellej_idea">
         <classes>
             <class name="com.testRunnersTestNG.TestNGTest">

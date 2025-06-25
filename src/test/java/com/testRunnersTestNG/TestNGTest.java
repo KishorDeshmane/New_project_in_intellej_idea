@@ -1,14 +1,18 @@
 package com.testRunnersTestNG;
 
 //import org.junit.runner.RunWith;
+import com.qa.utility.RetryAnalyzer;
+import io.cucumber.testng.FeatureWrapper;
+import io.cucumber.testng.PickleWrapper;
 import org.testng.annotations.DataProvider;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.testng.annotations.Test;
 
 @CucumberOptions(
 		features = "src/test/resources/features",
-		tags="@TC_PRO_A_016", 				// tags="@xyz or @abc", 	//	tags="@Positive",
+//		tags="@TS_LP_001", 				// tags="@xyz or @abc", 	//	tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:
 //		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
@@ -30,4 +34,17 @@ public class TestNGTest extends AbstractTestNGCucumberTests {
     public Object[][] scenarios() {
         return super.scenarios();
     }
+
+// Retry Logic for failed tests
+	@Test(
+			groups = {"cucumber"},
+			description = "Runs Cucumber Scenarios",
+			dataProvider = "scenarios",
+			retryAnalyzer = RetryAnalyzer.class // Retry logic for failed tests
+	)
+	public void runScenario(PickleWrapper pickleWrapper, FeatureWrapper featureWrapper) {
+		super.runScenario(pickleWrapper, featureWrapper);
+	}
+
 }
+

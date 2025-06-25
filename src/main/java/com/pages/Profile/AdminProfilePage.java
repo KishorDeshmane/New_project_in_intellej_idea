@@ -276,7 +276,12 @@ public class AdminProfilePage {
     }
 
     public void verifyUsernameEmailMobileFieldsAreReadOnly() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_Username_username);
+//        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_Username_username);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (input_Username_username.isEnabled()) {
             Assert.fail("Username field is not read-only");
         }

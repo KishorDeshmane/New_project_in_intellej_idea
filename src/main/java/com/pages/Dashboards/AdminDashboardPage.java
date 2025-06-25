@@ -72,8 +72,8 @@ public class AdminDashboardPage {
         }
         ElementUtil.eu.wait_for_element_to_be_clickable(
                 driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
-//        ElementUtil.eu.clickByJS(driver, profileImage);
-        profileImage.click();
+        ElementUtil.eu.clickByJS(driver, profileImage);
+//        profileImage.click();
     }
 
     public void profileImageIsClicked_withJAVASCRIPT() {

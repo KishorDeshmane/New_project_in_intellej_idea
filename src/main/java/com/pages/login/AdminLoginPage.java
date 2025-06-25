@@ -350,7 +350,11 @@ public class AdminLoginPage {
     }
 
     public void submitForgotPasswordRequest() {
-        clickOnResetPasswordButton();
+        if (resetPasswordButton.isDisplayed() && resetPasswordButton.isEnabled()) {
+            resetPasswordButton.click();
+        } else {
+            throw new RuntimeException("Reset Password button is not clickable.");
+        }
     }
 
     public boolean passwordResetLinkSentMessageIsDisplayed() {

@@ -14,11 +14,14 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.Objects;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+
+//@Test(retryAnalyzer = com.qa.utility.RetryAnalyzer.class)
 
 public class Administration_login {
     private final AdminLoginPage lps = new AdminLoginPage(DriverFactory.getDriver());
@@ -273,6 +276,7 @@ public class Administration_login {
     @And("submits the request")
     public void submitsTheRequest() {
         lps.submitForgotPasswordRequest();
+        logger.info("Admin submits the forgot password request");
     }
 
     @Then("a password reset link should be sent to the Super Admins email")
