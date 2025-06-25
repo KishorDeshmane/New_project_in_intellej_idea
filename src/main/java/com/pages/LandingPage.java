@@ -76,6 +76,8 @@ public class LandingPage {
 	}
 
 	public void loginAsCustomerClicked() {
+		ElementUtil.eu.wait_for_element_to_be_clickable(
+				driver, ConfigManager.getPropertyinInt("implicit.wait"), log_in_as_customer_button);
 		log_in_as_customer_button.click();
 	}
 

@@ -70,9 +70,10 @@ public class AdminDashboardPage {
         } catch (NoSuchElementException | ElementNotInteractableException | InterruptedException e) {
             System.out.println("loggedInSuccessfullyToast - Element not found or not clickable — ignore silently");
         }
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
-        ElementUtil.eu.clickByJS(driver, profileImage);
-//        profileImage.click();
+        ElementUtil.eu.wait_for_element_to_be_clickable(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
+//        ElementUtil.eu.clickByJS(driver, profileImage);
+        profileImage.click();
     }
 
     public void profileImageIsClicked_withJAVASCRIPT() {
@@ -122,8 +123,9 @@ public class AdminDashboardPage {
     }
 
     public void logout() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), signOutText);
-        signOutText.click();
+        ElementUtil.eu.clickByJS(driver, signOutText);
+//        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), signOutText);
+//        signOutText.click();
     }
 
     public void verifyAdminDashboardPageIsLoadedAfterPasswordChanges() {

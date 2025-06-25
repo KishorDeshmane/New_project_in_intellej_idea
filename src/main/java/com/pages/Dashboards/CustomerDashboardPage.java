@@ -50,7 +50,8 @@ public class CustomerDashboardPage {
 
 
     public boolean customerLoggedInSuccessfullyToastIsDisplayed() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), customerLoggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), customerLoggedInSuccessfullyToast);
         return customerLoggedInSuccessfullyToast.isDisplayed();
     }
 

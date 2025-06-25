@@ -127,7 +127,8 @@ public class ChangePasswordPage {
     }
 
     public void clickOnSubmitCurrentPasswordButton() {
-        ElementUtil.eu.waitForPageToLoad(driver);
+        ElementUtil.eu.wait_for_element_to_be_clickable(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Submit_CurrentPassword);
         button_Submit_CurrentPassword.click();
     }
 

@@ -20,7 +20,7 @@ public class AllureReportHelper {
         createEnvironmentProperties();
         createExecutorJson();
         createCategoriesJson();
-        copyHistoryFromLastRun();         // ✅ Add this before generating the report
+        copyHistoryFromLastRun();
         generateAllureReport();
     }
 
@@ -178,6 +178,11 @@ public class AllureReportHelper {
                 "    \"traceRegex\": \".*IOException.*\"\n" +
                 "  },\n" +
                 "  {\n" +
+                "    \"name\": \"Element Not Interactable\",\n" +
+                "    \"matchedStatuses\": [\"failed\"],\n" +
+                "    \"traceRegex\": \".*ElementNotInteractableException.*\"\n" +
+                "  },\n" +
+                "  {\n" +
                 "    \"name\": \"Unhandled Exception\",\n" +
                 "    \"matchedStatuses\": [\"broken\", \"failed\"],\n" +
                 "    \"traceRegex\": \".*Exception.*\"\n" +
@@ -224,10 +229,16 @@ public class AllureReportHelper {
     public static void generateAllureReport() {
         try {
             Process generateProcess = Runtime.getRuntime().exec(
-                    "C:\\Users\\HP\\scoop\\shims\\allure.cmd generate target/allure-results --clean --single-file -o target/allure-report"
+                    "C:\\Users\\HP\\scoop\\shims\\allure.cmd generate target/allure-results --clean -o target/allure-report"
+            );
+
+            Process generateProcess1 = Runtime.getRuntime().exec(
+                    "C:\\Users\\HP\\scoop\\shims\\allure.cmd generate target/allure-results --clean --single-file -o target/allure-report1"
             );
             printProcessOutput(generateProcess);
             generateProcess.waitFor();
+            printProcessOutput(generateProcess1);
+            generateProcess1.waitFor();
             System.out.println("Allure report generated successfully as a single file.");
 
 //            Open the Allure report in the default browser Opening report creating problem for the sending the report need to work on this

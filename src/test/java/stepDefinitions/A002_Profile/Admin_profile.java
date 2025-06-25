@@ -37,7 +37,7 @@ public class Admin_profile {
 
     @And("admin Profile Page is loaded")
     public void adminProfilePageIsLoaded() {
-        aDash.profileImageIsClicked();
+        aDash.profileImageIsClicked_withJAVASCRIPT();
         aDash.profileTextIsClickedFromPopUp_JAVASCRIPT();
         logger.info("Admin Profile Page is loaded");
     }
@@ -464,7 +464,7 @@ public class Admin_profile {
 
     @When("Admin clicks the Logout option")
     public void adminClicksTheLogoutOption() {
-        aDash.profileImageIsClicked();
+        aDash.profileImageIsClicked_withJAVASCRIPT();
         aDash.logout();
         logger.info("Admin clicked the Logout option");
     }

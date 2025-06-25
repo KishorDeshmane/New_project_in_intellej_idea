@@ -126,8 +126,10 @@ public class AdminProfilePage {
 
     public void verifyAdminProfilePageIsLoaded() {
         String pageTitle = ElementUtil.eu.current_page_title(driver);
-//        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), "Shield - Admin Profile");
-        Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Admin Profile page is not loaded");
+        String title = ConfigManager.getTestDataProperties().getProperty("admin_profile");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), title);
+        Assert.assertEquals(pageTitle, title, "Admin Profile page is not loaded");
     }
 
     public void verifyAllAdminRequiredProfileFieldsAreVisible() {

@@ -59,12 +59,12 @@ public class EmailReportSender {
                     "Dear Team,\n\n" +
                             "Please find the attached Allure test report for the latest test execution.\n\n" +
                             "Regards,\n" +
-                            "QA Automation Team"
+                            "QA Automation"
             );
 
             // Attach Allure Report (HTML File)
             MimeBodyPart attachmentPart = new MimeBodyPart();
-            File reportFile = new File("target/allure-report/index.zip"); // Path to report file
+            File reportFile = new File("target/allure-report1/index.zip"); // Path to report file
             attachmentPart.attachFile(reportFile);
 
             // Combine Message and Attachment

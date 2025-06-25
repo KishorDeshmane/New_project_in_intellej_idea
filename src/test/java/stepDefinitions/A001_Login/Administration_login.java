@@ -34,6 +34,8 @@ public class Administration_login {
         changedUrl = baseUrl.replaceFirst("s", "");
         DriverFactory.getDriver().get(changedUrl +"admin/login");
         String title = ConfigManager.getTestDataProperties().getProperty("admin_sign_in");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"), title);
         String current_title = ElementUtil.eu.current_page_title(DriverFactory.getDriver());
         assertEquals(current_title, title, "Admin Login Page is not displayed");
     }

@@ -26,7 +26,7 @@ public class DriverFactory {
                 ? ConfigManager.getConfigProperties().getProperty("browser", "chrome").split("#")[0].trim()
                 : browser.split("#")[0].trim();
 
-        System.out.println("Starting browser: " + browser);
+//        System.out.println("Starting browser: " + browser);
 
         int implicitWait = Integer.parseInt(ConfigManager.getConfigProperties().getProperty("implicit.wait", "10").split("#")[0].trim());
         int pageLoadTimeout = Integer.parseInt(ConfigManager.getConfigProperties().getProperty("page.load.timeout", "30").split("#")[0].trim());
