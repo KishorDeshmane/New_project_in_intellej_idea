@@ -191,6 +191,7 @@ public class AdminLoginPage {
         email_field.click();
         String email = ConfigManager.getConfigProperties().getProperty("Invalid_email");
         email_field.sendKeys(email +Keys.TAB);
+
     }
 
     public void enterTheInavalidPasswordIntoThePasswordField() {
