@@ -56,6 +56,7 @@ public class AllureReportHelper {
                 System.out.println("✅ environment.properties created");
 //                props.forEach((k, v) ->
 //                        System.out.println("  → " + k + ": " + v));
+
             }
         } catch (Exception e) {
             System.err.println("❌ Failed to create environment.properties: " + e.getMessage());
