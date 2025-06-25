@@ -182,6 +182,8 @@ public class AdminLoginPage {
     }
 
     public void loginButtonIsClicked(){
+        ElementUtil.eu.wait_for_element_to_be_clickable(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), login_button);
         login_button.click();
     }
 
@@ -451,7 +453,7 @@ public class AdminLoginPage {
     public void enterTheUnregisteredEmailIntoTheEmailField() {
         email_field.click();
         String unregisteredEmail = ConfigManager.getConfigProperties().getProperty("Unregistered_email");
-        email_field.sendKeys(unregisteredEmail + Keys.TAB);
+        email_field.sendKeys(unregisteredEmail);
     }
 
     public void enterValidRegisteredEmailAddress_admin() {
@@ -497,11 +499,6 @@ public class AdminLoginPage {
     }
 
     public void verifyAdminLoginPageIsLoaded() {
-        try {
-            Thread.sleep(1000); // Wait for the page to load
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         if (!login_button.isDisplayed()) {
             throw new IllegalStateException("Admin Login page is not loaded properly. The login button is not displayed.");
         }

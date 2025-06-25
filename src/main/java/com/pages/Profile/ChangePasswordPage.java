@@ -143,8 +143,7 @@ public class ChangePasswordPage {
     }
 
     public void enterNewPassword(String newPassword) {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_ConfirmPassword);
-        input_NewPassword.sendKeys(newPassword);
+      input_NewPassword.sendKeys(newPassword);
     }
 
     public void enterConfirmPassword(String confirmPassword) {

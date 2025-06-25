@@ -260,6 +260,7 @@ public class Admin_profile {
 
     @When("Admin enters a current password")
     public void adminEntersACurrentPassword() {
+        ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
         try {
             aChangePass.enterCurrentPassword(ElementUtil.decrypt(ConfigManager.getProperty("password")));
         } catch (Exception e) {
@@ -471,11 +472,9 @@ public class Admin_profile {
 
     @Then("Admin should be redirected to the login page")
     public void adminShouldBeRedirectedToTheLoginPage() {
-        try {
-            Thread.sleep(1000); // Wait for the page to load
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"),
+                ConfigManager.getProperty("admin_sign_in"));
         lps.verifyAdminLoginPageIsLoaded();
         logger.info("Admin is redirected to the login page after logging out");
     }

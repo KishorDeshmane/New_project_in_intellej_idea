@@ -81,17 +81,20 @@ public class AdminDashboardPage {
     }
 
     public boolean loggedInSuccessfullyToastIsDisplayed(){
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
         return loggedInSuccessfullyToast.isDisplayed();
     }
 
     public boolean superAdminTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), superAdminText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), superAdminText);
         return superAdminText.isDisplayed();
     }
 
     public boolean adminTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver,ConfigManager.getPropertyinInt("implicit.wait"), adminText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(
+                driver,ConfigManager.getPropertyinInt("implicit.wait"), adminText);
         return adminText.isDisplayed();
     }
 

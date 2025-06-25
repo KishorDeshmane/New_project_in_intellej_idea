@@ -125,10 +125,10 @@ public class AdminProfilePage {
      */
 
     public void verifyAdminProfilePageIsLoaded() {
-        String pageTitle = ElementUtil.eu.current_page_title(driver);
         String title = ConfigManager.getTestDataProperties().getProperty("admin_profile");
         ElementUtil.eu.wait_for_to_be_title_is_displayed(
                 driver, ConfigManager.getPropertyinInt("implicit.wait"), title);
+        String pageTitle = ElementUtil.eu.current_page_title(driver);
         Assert.assertEquals(pageTitle, title, "Admin Profile page is not loaded");
     }
 
@@ -178,9 +178,9 @@ public class AdminProfilePage {
     }
 
     public void clickSaveButton() {
-        if (button_Save.isDisplayed()) {
-            button_Save.click();
-        } else {
+        //            button_Save.click();
+        if (button_Save.isDisplayed()) ElementUtil.eu.clickByJS(driver, button_Save);
+        else {
             throw new IllegalStateException("Save button is not displayed");
         }
     }
@@ -227,10 +227,11 @@ public class AdminProfilePage {
     }
 
     public void clickCancelButton() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Cancel);
-        if (button_Cancel.isDisplayed()) {
-            button_Cancel.click();
-        } else {
+        ElementUtil.eu.wait_for_element_to_be_displayed(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Cancel);
+        //            button_Cancel.click();
+        if (button_Cancel.isDisplayed()) ElementUtil.eu.clickByJS(driver, button_Cancel);
+        else {
             throw new IllegalStateException("Cancel button is not displayed");
         }
     }

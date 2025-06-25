@@ -157,7 +157,8 @@ public class ExecutiveProfilePage {
 
     public void clickOnSaveButton() {
         if (button_Save.isDisplayed()) {
-            button_Save.click();
+//            button_Save.click();
+            ElementUtil.eu.clickByJS(driver, button_Save);
         } else {
             Assert.fail("Save button is not displayed");
         }
@@ -194,7 +195,8 @@ public class ExecutiveProfilePage {
 
     public void clickOnCancelButton() {
         if (button_Cancel.isDisplayed()) {
-            button_Cancel.click();
+//            button_Cancel.click();
+            ElementUtil.eu.clickByJS(driver, button_Cancel);
         } else {
             Assert.fail("Cancel button is not displayed");
         }
