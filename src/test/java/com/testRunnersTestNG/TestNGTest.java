@@ -8,7 +8,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
 		features = "src/test/resources/features",
-//		tags="@TC_PRO_A_028", 				// tags="@xyz or @abc", 	//	tags="@Positive",
+		tags="@TC_PRO_A_028", 				// tags="@xyz or @abc", 	//	tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:
 //		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
