@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven "Maven"
+        allure "Allure"
     }
 
     stages {
@@ -18,7 +19,33 @@ pipeline {
             }
         }
 
-        stage('Generate Reports') {
+        stage('Restore Allure History') {
+            steps {
+                script {
+                    if (fileExists('target/allure-report/history')) {
+                        bat 'xcopy /E /Y /I target\\allure-report\\history target\\allure-results\\history'
+                    }
+                }
+            }
+        }
+
+        stage('Generate Allure Report') {
+            steps {
+                bat 'allure generate target/allure-results --clean -o target/allure-report'
+            }
+        }
+
+        stage('Publish Allure Report in Jenkins') {
+            steps {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    results: [[path: 'target/allure-results']]
+                ])
+            }
+        }
+
+        stage('Generate Other Reports') {
             steps {
                 junit '**/target/surefire-reports/TEST-*.xml'
                 cucumber 'target/cucumber-reports/*.json'
@@ -42,6 +69,8 @@ pipeline {
                 """,
                 to: "kishor.deshmane@iffort.com"
             )
+
+            archiveArtifacts artifacts: 'target/allure-report/history/**', allowEmptyArchive: true
         }
     }
 }
