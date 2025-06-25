@@ -78,6 +78,7 @@ public class AdminDashboardPage {
 
     public void profileImageIsClicked_withJAVASCRIPT() {
         ElementUtil.eu.clickByJS(driver, profileImage);
+
     }
 
     public boolean loggedInSuccessfullyToastIsDisplayed(){
