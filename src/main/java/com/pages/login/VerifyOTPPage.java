@@ -56,12 +56,12 @@ public class VerifyOTPPage {
     }
 
     public boolean OtpSendToastSuccessIsDisplayed() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, OtpSendToastSuccess);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), OtpSendToastSuccess);
         return OtpSendToastSuccess.isDisplayed();
     }
 
     public void verifyOTPTextIsclicked() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, verifyOTPButton);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), verifyOTPButton);
         verifyOTPButton.click();
     }
 

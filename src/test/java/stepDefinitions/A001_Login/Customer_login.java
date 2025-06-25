@@ -12,6 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 
+import java.util.Objects;
+
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -27,14 +29,11 @@ public class Customer_login {
     @Given("User is on the Customer login page")
     public void userIsOnTheCustomerLoginPage() {
 //        DriverFactory.getDriver().get(ConfigManager.getProperty("base.url"));
-
         String baseUrl = ConfigManager.getProperty("base.url");
         String changedUrl;
         assert baseUrl != null;
         changedUrl = baseUrl.replaceFirst("s", "");
-        System.out.println("Modified URL: " + changedUrl);
         DriverFactory.getDriver().get(changedUrl);
-
         laP.loginButtonMouseHover();
         laP.loginAsCustomerClicked();
         boolean value = clp.mobileNumberInputFieldIsDisplayed();
@@ -88,15 +87,11 @@ public class Customer_login {
         vop.verifyOTPTextIsclicked();
         cDash.bookingHistoryTabIsDisplayed();
         String currentURL = cDash.getTheDashboardUrl();
-        System.out.println(currentURL +"----current DASH URL");
         clp.redirectToTheLoginBackPage();
         String expectedURL =
-                ConfigManager.getProperty("base.url")
+                Objects.requireNonNull(ConfigManager.getProperty("base.url"))
                         .replaceFirst("s","");
-        System.out.println(expectedURL +"----expectedURL");
         Assert.assertEquals(currentURL, expectedURL);
         logger.info("Back button redirection");
-
-
     }
 }

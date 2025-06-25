@@ -1,8 +1,10 @@
 package stepDefinitions;
 
 import com.pages.LandingPage;
+import com.qa.utility.ConfigManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.applicationHooks.AppHooks;
@@ -12,9 +14,6 @@ import com.qa.utility.ElementUtil;
 import io.cucumber.java.en.Given;
 
 public class Landing_page {
-//	private WebDriver driver;
-//	String browser =ConfigManager.getProperty("browser").split("#")[0].trim();
-//	String baseUrl = ConfigManager.getProperty("base.url").split("#")[0].trim();
 
 	private final LandingPage lp = new LandingPage(DriverFactory.getDriver());
 	Logger logger = LogManager.getLogger(Landing_page.class);
@@ -28,24 +27,24 @@ public class Landing_page {
 	 *
 	 */
 
-	@Given("User is on the landing page as expected page title {string}")
-	public void user_is_on_the_landing_page_as_expected_page_title(String string) {
-//		System.out.println(Db_test.db.);
-		DriverFactory.getDriver().get(AppHooks.prop.getProperty("base.url").split("#")[0].trim());
+	@Given("User is on the landing page as expected page title")
+	public void user_is_on_the_landing_page_as_expected_page_title() {
+		String baseUrl = ConfigManager.getProperty("base.url");
+//      DriverFactory.getDriver().get(baseUrl + "admin/login");
+		String changedUrl;
+		assert baseUrl != null;
+		changedUrl = baseUrl.replaceFirst("s", "");
+		DriverFactory.getDriver().get(changedUrl);
+
 		String actual = ElementUtil.eu.current_page_title(DriverFactory.getDriver());
-		System.out.println(actual);
-		// boolean actualsss = lp.user_log_in_button_is_displayed();
-		// Assert.assertTrue(actualsss);
-		System.out.println("String: " + string);
-		System.out.println("actual: " + actual);
-		// Assert.assertEquals(actual, string);
-		System.out.println("Hello");
-		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName());
-		AppHooks.log("First method name");
+		String landingPageTitle = ConfigManager.getTestDataProperties().getProperty("landing_page").split("#")[0].trim();
+		Assert.assertEquals(actual, landingPageTitle);
+		logger.info("User is on the landing page as expected page title");
 	}
 
 	@Test
 	public void method_name() {
-		System.out.println("method two");
+		//		System.out.println(Db_test.db.);
+				System.out.println("method two");
 	}
 }

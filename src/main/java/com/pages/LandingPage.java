@@ -1,6 +1,7 @@
 package com.pages;
 
 import com.qa.factory.DriverFactory;
+import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -54,18 +55,17 @@ public class LandingPage {
 	}
 
 	public void loginButtonMouseHover() {
-		ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, log_in_button);
+		ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), log_in_button);
 		ElementUtil.eu.mouseHover(driver, log_in_button);
-
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, log_in_as_partner_button);
 	}
 
 	public void loginAsPartnerClicked() {
+		ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), log_in_as_partner_button);
 		log_in_as_partner_button.click();
 	}
 

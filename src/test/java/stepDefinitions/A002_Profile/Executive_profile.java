@@ -4,6 +4,7 @@ import com.pages.Dashboards.AdminDashboardPage;
 import com.pages.Profile.ExecutiveProfilePage;
 import com.pages.login.AdminLoginPage;
 import com.qa.factory.DriverFactory;
+import com.qa.utility.ConfigManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,7 +22,7 @@ public class Executive_profile {
     @And("Executive Profile Page is loaded")
     public void executiveProfilePageIsLoaded() {
         aDash.profileImageIsClicked();
-        aDash.profileTextIsClickedFromPopUp();
+        aDash.profileTextIsClickedFromPopUp_JAVASCRIPT();
         logger.info("Executive Profile Page is loaded");
     }
 

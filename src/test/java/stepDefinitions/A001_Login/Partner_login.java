@@ -27,19 +27,18 @@ public class Partner_login {
     @Given("User is on the Partner admin login page")
     public void userIsOnThePartnerAdminLoginPage() {
 //        DriverFactory.getDriver().get(ConfigManager.getProperty("base.url"));
-
         String baseUrl = ConfigManager.getProperty("base.url");
         String changedUrl;
         assert baseUrl != null;
         changedUrl = baseUrl.replaceFirst("s", "");
-        System.out.println("Modified URL: " + changedUrl);
         DriverFactory.getDriver().get(changedUrl);
-
         lpo.loginButtonMouseHover();
         lpo.loginAsPartnerClicked();
-        ElementUtil.eu.wait_for_to_be_title_is_displayed(DriverFactory.getDriver(), 10,"Shield - Partner Sign In");
+        String title = ConfigManager.getTestDataProperties().getProperty("partner_sign_in");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"),title);
         String currentTitle = plp.getTheCurrentPageTitle();
-        Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
+        Assert.assertEquals(currentTitle, title);
     }
 
     @Then("Partner Admin Login with Valid Credentials")
@@ -49,6 +48,11 @@ public class Partner_login {
         plp.loginButtonIsClicked();
         boolean actualValue = pDash.loggedInSuccessfullyToastIsDisplayed();
         Assert.assertTrue(actualValue);
+        String title = ConfigManager.getTestDataProperties().getProperty("partner_dashboard");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"),title);
+        String currentTitle = ElementUtil.eu.current_page_title(DriverFactory.getDriver());
+        Assert.assertEquals(currentTitle, title);
         logger.info("Partner Admin Login with Valid Credentials");
     }
 
@@ -104,13 +108,11 @@ public class Partner_login {
         plp.loginButtonIsClicked();
         pDash.loggedInSuccessfullyToastIsDisplayed();
         String currentURL = pDash.getTheDashboardUrl();
-        System.out.println(currentURL +"----current DASH URL");
         plp.redirectToTheLoginBackPage();
         String expectedURL =
                 ConfigManager.getProperty("base.url")
                         .replaceFirst("s","")+"partner/dashboard/";
         ElementUtil.eu.waitForExpectedURL(DriverFactory.getDriver(), expectedURL);
-        System.out.println(expectedURL +"----expectedURL");
         Assert.assertEquals(currentURL, expectedURL);
         logger.info("Back button redirection");
     }
@@ -222,7 +224,8 @@ public class Partner_login {
         lpo.loginAsPartnerClicked();
         String currentTitle = plp.getTheCurrentPageTitle();
         ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
-        Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
+        String title = ConfigManager.getTestDataProperties().getProperty("partner_sign_in");
+        Assert.assertEquals(currentTitle, title);
     }
 
 
@@ -231,7 +234,8 @@ public class Partner_login {
         plp.forgotPasswordLinkIsClicked();
         ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
         String currentTitle = plp.getTheCurrentPageTitle();
-        Assert.assertEquals(currentTitle, "Shield - Forgot Password");
+        String title = ConfigManager.getTestDataProperties().getProperty("forget_password");
+        Assert.assertEquals(currentTitle, title);
         logger.info("Partner Admin navigated to Forgot Password page");
     }
 
@@ -310,14 +314,15 @@ public class Partner_login {
         String changedUrl;
         assert baseUrl != null;
         changedUrl = baseUrl.replaceFirst("s", "");
-        System.out.println("Modified URL: " + changedUrl);
         DriverFactory.getDriver().get(changedUrl);
-
         lpo.loginButtonMouseHover();
         lpo.loginAsPartnerClicked();
+        String title = ConfigManager.getTestDataProperties().getProperty("partner_sign_in");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"),title);
         String currentTitle = plp.getTheCurrentPageTitle();
         ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
-        Assert.assertEquals(currentTitle, "Shield - Partner Sign In");
+        Assert.assertEquals(currentTitle, title);
     }
 
     @And("the partner executive clicks on Forgot Password")
@@ -325,7 +330,8 @@ public class Partner_login {
         plp.forgotPasswordLinkIsClicked();
         ElementUtil.eu.waitForPageToLoad(DriverFactory.getDriver());
         String currentTitle = plp.getTheCurrentPageTitle();
-        Assert.assertEquals(currentTitle, "Shield - Forgot Password");
+        String title = ConfigManager.getTestDataProperties().getProperty("forget_password");
+        Assert.assertEquals(currentTitle, title);
         logger.info("Partner Executive navigated to Forgot Password page");
     }
 

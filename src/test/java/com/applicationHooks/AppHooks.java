@@ -92,8 +92,8 @@ public class AppHooks {
         AllureReportHelper.generateAllureSupportFiles();
 
 //        Zip file was the older one TO dO
-        EmailReportSender.zipLargeFile("target/allure-report/index.html", "target/allure-report/index.zip");
-        EmailReportSender.sendEmailWithReport("kishor.deshmane@iffort.com");
+//        EmailReportSender.zipLargeFile("target/allure-report/index.html", "target/allure-report/index.zip");
+//        EmailReportSender.sendEmailWithReport("kishor.deshmane@iffort.com");
     }
 }
 

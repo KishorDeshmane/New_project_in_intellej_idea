@@ -1,5 +1,6 @@
 package com.pages.Dashboards;
 
+import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -49,11 +50,12 @@ public class CustomerDashboardPage {
 
 
     public boolean customerLoggedInSuccessfullyToastIsDisplayed() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, customerLoggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), customerLoggedInSuccessfullyToast);
         return customerLoggedInSuccessfullyToast.isDisplayed();
     }
 
     public boolean bookingHistoryTabIsDisplayed() {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), bookingHistoryTab);
         return bookingHistoryTab.isDisplayed();
     }
 

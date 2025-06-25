@@ -63,13 +63,14 @@ public class AdminDashboardPage {
 
     public void profileImageIsClicked() {
         try {
+            Thread.sleep(500);
             if (loggedInSuccessfullyToast.isDisplayed()) {
                 loggedInSuccessfullyToast.click();
             }
-        } catch (NoSuchElementException | ElementNotInteractableException e) {
+        } catch (NoSuchElementException | ElementNotInteractableException | InterruptedException e) {
             System.out.println("loggedInSuccessfullyToast - Element not found or not clickable — ignore silently");
         }
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, profileImage);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileImage);
         ElementUtil.eu.clickByJS(driver, profileImage);
 //        profileImage.click();
     }
@@ -79,22 +80,22 @@ public class AdminDashboardPage {
     }
 
     public boolean loggedInSuccessfullyToastIsDisplayed(){
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, loggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
         return loggedInSuccessfullyToast.isDisplayed();
     }
 
     public boolean superAdminTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, superAdminText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), superAdminText);
         return superAdminText.isDisplayed();
     }
 
     public boolean adminTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, adminText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,ConfigManager.getPropertyinInt("implicit.wait"), adminText);
         return adminText.isDisplayed();
     }
 
     public boolean executiveTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, executiveText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), executiveText);
         return executiveText.isDisplayed();
     }
 
@@ -112,7 +113,7 @@ public class AdminDashboardPage {
     }
 
     public void profileTextIsClickedFromPopUp() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, myProfileText);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), myProfileText);
         myProfileText.click();
     }
 
@@ -121,7 +122,7 @@ public class AdminDashboardPage {
     }
 
     public void logout() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, signOutText);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), signOutText);
         signOutText.click();
     }
 
@@ -133,7 +134,7 @@ public class AdminDashboardPage {
     }
 
     public void verifyLogoutOptionIsVisible() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, signOutText);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), signOutText);
         if (!signOutText.isDisplayed()) {
             throw new IllegalStateException("Logout option is not visible in the Admin Dashboard.");
         }
@@ -141,7 +142,7 @@ public class AdminDashboardPage {
 
     public boolean logoutButtonIsVisible() {
         try {
-            ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, signOutText);
+            ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), signOutText);
             return signOutText.isDisplayed();
         } catch (NoSuchElementException e) {
             return false; // If the element is not found, return false

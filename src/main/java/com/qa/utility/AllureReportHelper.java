@@ -31,7 +31,6 @@ public class AllureReportHelper {
             // App-specific config
             Capabilities cap = ((RemoteWebDriver) DriverFactory.getDriver()).getCapabilities();
             String browserName = cap.getBrowserName();
-//            String browserName = getConfigValue("browser", "Chrome");
             String baseUrl = getConfigValue("base.url", "http://localhost:8080");
             String env = getSystemOrEnv("test.env", "QA");
 
@@ -54,8 +53,9 @@ public class AllureReportHelper {
 
             try (FileOutputStream out = new FileOutputStream(RESULTS_DIR + "/environment.properties")) {
                 props.store(out, "Allure Environment Properties");
-                System.out.println("✅ environment.properties created with the following:");
-                props.forEach((k, v) -> System.out.println("  → " + k + ": " + v));
+                System.out.println("✅ environment.properties created");
+//                props.forEach((k, v) ->
+//                        System.out.println("  → " + k + ": " + v));
             }
         } catch (Exception e) {
             System.err.println("❌ Failed to create environment.properties: " + e.getMessage());

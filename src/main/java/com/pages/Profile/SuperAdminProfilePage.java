@@ -1,5 +1,6 @@
 package com.pages.Profile;
 
+import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -110,7 +111,7 @@ public class SuperAdminProfilePage {
 
     public void verifySuperAdminProfilePageIsLoaded() {
         String pageTitle = ElementUtil.eu.current_page_title(driver);
-        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Admin Profile");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), "Shield - Admin Profile");
         Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Super Admin Profile page is not loaded");
     }
 

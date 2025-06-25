@@ -38,7 +38,7 @@ public class Admin_profile {
     @And("admin Profile Page is loaded")
     public void adminProfilePageIsLoaded() {
         aDash.profileImageIsClicked();
-        aDash.profileTextIsClickedFromPopUp();
+        aDash.profileTextIsClickedFromPopUp_JAVASCRIPT();
         logger.info("Admin Profile Page is loaded");
     }
 
@@ -262,10 +262,10 @@ public class Admin_profile {
     public void adminEntersACurrentPassword() {
         try {
             aChangePass.enterCurrentPassword(ElementUtil.decrypt(ConfigManager.getProperty("password")));
-            aChangePass.clickOnSubmitCurrentPasswordButton();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        aChangePass.clickOnSubmitCurrentPasswordButton();
         logger.info("Admin entered a new password");
     }
 

@@ -1,5 +1,6 @@
 package com.pages.Profile;
 
+import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -123,9 +124,10 @@ public class ExecutiveProfilePage {
      */
 
     public void verifyExecutiveProfilePageIsLoaded() {
-        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Admin Profile");
+        String title = ConfigManager.getTestDataProperties().getProperty("admin_profile");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), title);
         String pageTitle = ElementUtil.eu.current_page_title(driver);
-        Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Executive Profile page is not loaded");
+        Assert.assertEquals(pageTitle, title, "Executive Profile page is not loaded");
     }
 
     public void verifyAllExecutiveRequiredProfileFieldsAreVisible() {
@@ -162,7 +164,7 @@ public class ExecutiveProfilePage {
     }
 
     public void verifySuccessMessage(String successMessage) {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, successToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), successToast);
          Assert.assertTrue(successToast.isDisplayed(), "Success message is not displayed: " + successMessage);
     }
 
@@ -176,7 +178,7 @@ public class ExecutiveProfilePage {
     }
 
     public void enterLastName(String executive) {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, input__last_name);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input__last_name);
         if (input__last_name.isDisplayed()) {
             input__last_name.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
             input__last_name.sendKeys(executive);
@@ -186,7 +188,7 @@ public class ExecutiveProfilePage {
     }
 
     public void verifyInpurFieldErroMessage(String errorMessage) {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorLastNameInputFieldErrorMessage);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), errorLastNameInputFieldErrorMessage);
         Assert.assertTrue(errorLastNameInputFieldErrorMessage.isDisplayed(), "Error message is not displayed: " + errorMessage);
     }
 

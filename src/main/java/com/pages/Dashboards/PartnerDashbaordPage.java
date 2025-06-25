@@ -29,7 +29,7 @@ public class PartnerDashbaordPage {
     @FindBy(xpath= "//p[@class='main-notification-text']")
     private WebElement partnerCustomRoleText;
 
-    @FindBy(xpath= "//*[text()='User logged in successfully']")
+    @FindBy(xpath= "//*[contains(text(),'User logged in successfully')]")
     private WebElement loggedInSuccessfullyToast;
 
     /*
@@ -59,22 +59,17 @@ public class PartnerDashbaordPage {
     }
 
     public boolean loggedInSuccessfullyToastIsDisplayed(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, loggedInSuccessfullyToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedInSuccessfullyToast);
         return loggedInSuccessfullyToast.isDisplayed();
     }
 
     public boolean partnerAdminTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, partnerAdminText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,ConfigManager.getPropertyinInt("implicit.wait"), partnerAdminText);
         return partnerAdminText.isDisplayed();
     }
 
     public boolean partnerExecutiveTextInProfileIconDisplays() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, partnerExecutiveText);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,ConfigManager.getPropertyinInt("implicit.wait"), partnerExecutiveText);
         return partnerExecutiveText.isDisplayed();
     }
 

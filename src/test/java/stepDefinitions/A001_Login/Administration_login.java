@@ -15,6 +15,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import java.util.Objects;
+
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class Administration_login {
@@ -25,14 +28,14 @@ public class Administration_login {
     @Given("User is on the admin login page")
     public void userIsOnTheAdminLoginPage() {
         String baseUrl = ConfigManager.getProperty("base.url");
-//        DriverFactory.getDriver().get(baseUrl + "admin/login");
-
-        System.out.println("Original URL: " + baseUrl);
+//      DriverFactory.getDriver().get(baseUrl + "admin/login");
         String changedUrl;
         assert baseUrl != null;
         changedUrl = baseUrl.replaceFirst("s", "");
-        System.out.println("Modified URL: " + changedUrl);
         DriverFactory.getDriver().get(changedUrl +"admin/login");
+        String title = ConfigManager.getTestDataProperties().getProperty("admin_sign_in");
+        String current_title = ElementUtil.eu.current_page_title(DriverFactory.getDriver());
+        assertEquals(current_title, title, "Admin Login Page is not displayed");
     }
 
     @Then("Super Admin Login with Valid Credentials")
@@ -40,8 +43,7 @@ public class Administration_login {
         lps.enterTheValidEmailIntoTheEmailField_SuperAdmin();
         lps.enterTheValidPasswordIntoThePasswordField_SuperAdmin();
         lps.loginButtonIsClicked();
-        boolean actualValues;
-        actualValues = aDash.loggedInSuccessfullyToastIsDisplayed();
+        boolean actualValues = aDash.loggedInSuccessfullyToastIsDisplayed();
         assertTrue(actualValues);
         logger.info("Super Admin Login with Valid Credentials");
     }
@@ -96,15 +98,15 @@ public class Administration_login {
         lps.enterTheValidPasswordIntoThePasswordField_SuperAdmin();
         lps.loginButtonIsClicked();
         aDash.loggedInSuccessfullyToastIsDisplayed();
-        ElementUtil.eu.wait_for_to_be_title_is_displayed(DriverFactory.getDriver(), 10, "Shield - Admin Dashboard");
+        String title = ConfigManager.getTestDataProperties().getProperty("admin_dashboard");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(
+                DriverFactory.getDriver(), ConfigManager.getPropertyinInt("implicit.wait"), title);
         String currentURL = aDash.getDashboardUrl();
-        System.out.println(currentURL +"----current DASH URL");
         lps.redirectToTheLoginBackPage();
         String expectedURL =
-                ConfigManager.getProperty("base.url")
+                Objects.requireNonNull(ConfigManager.getProperty("base.url"))
                         .replaceFirst("s","")+"admin/dashboard/";
         ElementUtil.eu.waitForExpectedURL(DriverFactory.getDriver(), expectedURL);
-        System.out.println(expectedURL +"----expectedURL");
         Assert.assertEquals(currentURL, expectedURL);
         logger.info("Back button redirection");
     }

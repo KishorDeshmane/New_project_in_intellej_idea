@@ -122,7 +122,7 @@ public class ChangePasswordPage {
     }
 
     public void enterCurrentPassword(String currentPassword) {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, input_CurrentPassword);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,ConfigManager.getPropertyinInt("implicit.wait"), input_CurrentPassword);
         input_CurrentPassword.sendKeys(currentPassword);
     }
 
@@ -132,7 +132,7 @@ public class ChangePasswordPage {
     }
 
     public void clickOnCancelCurrentPasswordButton() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, button_Cancel_CurrentPassword);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Cancel_CurrentPassword);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -142,16 +142,12 @@ public class ChangePasswordPage {
     }
 
     public void enterNewPassword(String newPassword) {
-//        ElementUtil.eu.waitForPageToLoad(driver);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_ConfirmPassword);
         input_NewPassword.sendKeys(newPassword);
     }
 
     public void enterConfirmPassword(String confirmPassword) {
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_ConfirmPassword);
         input_ConfirmPassword.sendKeys(confirmPassword);
     }
 
@@ -164,7 +160,7 @@ public class ChangePasswordPage {
     }
 
     public void verifyPasswordUpdatedSuccessfully() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, successMessage);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), successMessage);
         Assert.assertTrue(successMessage.isDisplayed(), "Password update success message is not displayed.");
     }
 
@@ -176,7 +172,7 @@ public class ChangePasswordPage {
 
     public void verifyInvalidCurrentPasswordErrorMessage() {
         String expectedMessage = "Password is incorrect!";
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, small_Please_enter_correct_password);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), small_Please_enter_correct_password);
         String actualMessage = small_Please_enter_correct_password.getText();
         Assert.assertEquals(actualMessage, expectedMessage, "Invalid current password error message does not match.");
     }
@@ -215,10 +211,11 @@ public class ChangePasswordPage {
         String currentPasswordType = input_CurrentPassword.getAttribute("type");
         try {
             enterCurrentPassword(ElementUtil.decrypt(ConfigManager.getProperty("password")));
-            clickOnSubmitCurrentPasswordButton();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        clickOnSubmitCurrentPasswordButton();
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_NewPassword);
         String newPasswordType = input_NewPassword.getAttribute("type");
         String confirmPasswordType = input_ConfirmPassword.getAttribute("type");
 
@@ -237,7 +234,7 @@ public class ChangePasswordPage {
 
     public void verifyShortPasswordErrorMessage() {
         String expectedMessage = "Your password must have at least 8 characters or more long.";
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, small_enter_long_password_message);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), small_enter_long_password_message);
         String actualMessage = small_enter_long_password_message.getText();
         Assert.assertEquals(actualMessage, expectedMessage, "Short password error message does not match.");
     }

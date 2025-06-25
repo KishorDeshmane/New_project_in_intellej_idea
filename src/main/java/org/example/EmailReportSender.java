@@ -109,8 +109,8 @@ public class EmailReportSender {
 
     public static void main(String[] args) throws Exception {
 
-        zipLargeFile("target/allure-report/index.html","target/allure-report/index.zip");
-        sendEmailWithReport("kishor.deshmane@iffort.com");
+//        zipLargeFile("target/allure-report/index.html","target/allure-report/index.zip");
+//        sendEmailWithReport("kishor.deshmane@iffort.com");
 
     }
 }

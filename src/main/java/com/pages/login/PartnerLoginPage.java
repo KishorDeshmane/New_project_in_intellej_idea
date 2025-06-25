@@ -191,26 +191,26 @@ public class PartnerLoginPage {
      */
 
     public void forgotPasswordLinkIsClicked() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, forgotPasswordLink);
+        ElementUtil.eu.wait_for_element_to_be_clickable(driver, ConfigManager.getPropertyinInt("implicit.wait"), forgotPasswordLink);
         ElementUtil.eu.waitForPageToLoad(driver);
         forgotPasswordLink.click();
-        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Forgot Password");
+        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), "Shield - Forgot Password");
     }
 
     public void submitPasswordResetRequest() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, requestlinkButton);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), requestlinkButton);
         requestlinkButton.click();
     }
 
     public void requestLinkSentMessageIsDisplayed() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, requestlinkButton);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), requestlinkButton);
         if (!requestlinkButton.isDisplayed()) {
             throw new RuntimeException("Request link button is not displayed after clicking 'Forgot Password' link.");
         }
     }
 
     public String getRequestLinkSentMessage() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, requestLinkSentMessage);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), requestLinkSentMessage);
         if (!requestLinkSentMessage.isDisplayed()) {
             throw new RuntimeException("Request link button is not displayed after clicking 'Forgot Password' link.");
         }
@@ -225,18 +225,15 @@ public class PartnerLoginPage {
 
     public boolean errorMessageForUnregisteredEmailIsDisplayed() {
         try {
-            Thread.sleep(1000);
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorMessageForUnregisteredEmail);
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), errorMessageForUnregisteredEmail);
             return errorMessageForUnregisteredEmail.isDisplayed();
         } catch (NoSuchElementException e) {
-            return false; // Element not found, so the message is not displayed
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 
     public String getUnregisteredEmailErrorMessage() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorMessageForUnregisteredEmail);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), errorMessageForUnregisteredEmail);
         return errorMessageForUnregisteredEmail.getText();
     }
 
@@ -249,7 +246,7 @@ public class PartnerLoginPage {
     }
 
     public String getInvalidEmailErrorMessage() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, invalidEmailErrorMessage);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), invalidEmailErrorMessage);
         return invalidEmailErrorMessage.getText();
     }
 }

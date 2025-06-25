@@ -1,5 +1,6 @@
 package com.pages.Profile;
 
+import com.qa.utility.ConfigManager;
 import com.qa.utility.ElementUtil;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -125,7 +126,7 @@ public class AdminProfilePage {
 
     public void verifyAdminProfilePageIsLoaded() {
         String pageTitle = ElementUtil.eu.current_page_title(driver);
-//        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, 10, "Shield - Admin Profile");
+//        ElementUtil.eu.wait_for_to_be_title_is_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), "Shield - Admin Profile");
         Assert.assertEquals(pageTitle, "Shield - Admin Profile", "Admin Profile page is not loaded");
     }
 
@@ -187,7 +188,7 @@ public class AdminProfilePage {
     }
 
     public void verifyProfileUpdateSuccessToast() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, profileUpdateSuccessToast);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), profileUpdateSuccessToast);
         if (profileUpdateSuccessToast.isDisplayed()) {
             String toastMessage = profileUpdateSuccessToast.getText();
             Assert.assertEquals(toastMessage, "My profile updated successfully.", "Profile update success toast message is incorrect");
@@ -207,7 +208,7 @@ public class AdminProfilePage {
 
 
     public void verifyProfileNotUpdated() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, button_Save);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Save);
         if (button_Save.isEnabled()) {
             Assert.fail("Admin's profile was updated despite invalid last name format");
         } else {
@@ -224,7 +225,7 @@ public class AdminProfilePage {
     }
 
     public void clickCancelButton() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, button_Cancel);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Cancel);
         if (button_Cancel.isDisplayed()) {
             button_Cancel.click();
         } else {
@@ -235,7 +236,7 @@ public class AdminProfilePage {
     public void clickCancelButtonPopUp() {
         if (button_Cancel_pop_Up.isDisplayed()) {
             button_Cancel_pop_Up.click();
-            ElementUtil.eu.wait_for_element_to_be_invisible(driver, 10, button_Cancel_pop_Up);
+            ElementUtil.eu.wait_for_element_to_be_invisible(driver, ConfigManager.getPropertyinInt("implicit.wait"), button_Cancel_pop_Up);
         } else {
             throw new IllegalStateException("Cancel button is not displayed");
         }
@@ -260,11 +261,11 @@ public class AdminProfilePage {
     }
 
     public void verifyMandatoryFieldsValidationMessages() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, input_first_nameEmptyErrorMessage);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_first_nameEmptyErrorMessage);
         if (input_first_nameEmptyErrorMessage.isDisplayed()) {
             Assert.assertTrue(input_first_nameEmptyErrorMessage.isDisplayed(), "First Name validation message is not displayed");
         }
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, input__last_nameEmptyErrorMessage);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input__last_nameEmptyErrorMessage);
         if (input__last_nameEmptyErrorMessage.isDisplayed()) {
             Assert.assertTrue(input__last_nameEmptyErrorMessage.isDisplayed(), "Last Name validation message is not displayed");
         }
@@ -272,7 +273,7 @@ public class AdminProfilePage {
     }
 
     public void verifyUsernameEmailMobileFieldsAreReadOnly() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, input_Username_username);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_Username_username);
         if (input_Username_username.isEnabled()) {
             Assert.fail("Username field is not read-only");
         }
@@ -287,7 +288,7 @@ public class AdminProfilePage {
     }
 
     public void verifyUsernameEmailMobileFieldsAreNotEditable() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, input_Username_username);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), input_Username_username);
         if (input_Username_username.isEnabled()) {
             Assert.fail("Username field is editable");
         }
@@ -302,7 +303,7 @@ public class AdminProfilePage {
     }
 
     public void clickChangePasswordLink() {
-        ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, button_Change_Password);
+        ElementUtil.eu.wait_for_element_to_be_displayed(driver,ConfigManager.getPropertyinInt("implicit.wait"), button_Change_Password);
         if (button_Change_Password.isDisplayed()) {
             ElementUtil.eu.clickByJS(driver, button_Change_Password);
 //            button_Change_Password.click();

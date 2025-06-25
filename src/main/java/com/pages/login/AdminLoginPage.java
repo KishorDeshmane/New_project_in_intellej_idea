@@ -66,7 +66,7 @@ public class AdminLoginPage {
     @FindBy(xpath = "//div[text()='Password reset link sent successfully']")
     private WebElement passwordResetLinkSentMessage;
 
-    @FindBy(xpath = "//small[contains(text(), 'email is invalid')]")
+    @FindBy(xpath = "//small[contains(text(), 'The email is invalid')]")
     private WebElement errorMessageForUnregisteredEmail;
 
     @FindBy(xpath = "//small[@class='text-danger form-text' and text()='Please enter a valid email address.']")
@@ -309,7 +309,8 @@ public class AdminLoginPage {
     }
 
     public void clickOnResetPasswordButton() {
-        ElementUtil.eu.wait_for_element_to_be_clickable(driver, 10, resetPasswordButton);
+        ElementUtil.eu.wait_for_element_to_be_clickable(
+                driver, ConfigManager.getPropertyinInt("implicit.wait"), resetPasswordButton);
         if (resetPasswordButton.isDisplayed() && resetPasswordButton.isEnabled()) {
             resetPasswordButton.click();
         } else {
@@ -319,7 +320,8 @@ public class AdminLoginPage {
 
     public boolean isPasswordResetEmailSent() {
         try {
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver,10, successMessage);
+            ElementUtil.eu.wait_for_element_to_be_displayed(
+                    driver,ConfigManager.getPropertyinInt("implicit.wait"), successMessage);
             return successMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
@@ -328,7 +330,8 @@ public class AdminLoginPage {
 
     public boolean isConfirmationMessageDisplayed() {
         try {
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, confirmationMessage);
+            ElementUtil.eu.wait_for_element_to_be_displayed(
+                    driver, ConfigManager.getPropertyinInt("implicit.wait"), confirmationMessage);
             return confirmationMessage.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
@@ -348,30 +351,21 @@ public class AdminLoginPage {
     }
 
     public boolean passwordResetLinkSentMessageIsDisplayed() {
-        try {
-            try {
-                Thread.sleep(1000); // Wait for the message to appear
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, passwordResetLinkSentMessage);
+            ElementUtil.eu.wait_for_element_to_be_displayed(
+                    driver, ConfigManager.getPropertyinInt("implicit.wait"), passwordResetLinkSentMessage);
             return passwordResetLinkSentMessage.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 
     public boolean confirmationMessageIsDisplayed() {
-        try {
+            ElementUtil.eu.wait_for_element_to_be_displayed(
+                    driver, ConfigManager.getPropertyinInt("implicit.wait"), confirmationMessage);
             return confirmationMessage.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 
     public boolean errorMessageForUnregisteredEmailIsDisplayed() {
         try {
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, errorMessageForUnregisteredEmail);
+            ElementUtil.eu.wait_for_element_to_be_displayed(
+                    driver, ConfigManager.getPropertyinInt("implicit.wait"), errorMessageForUnregisteredEmail);
             return errorMessageForUnregisteredEmail.isDisplayed();
         } catch (NoSuchElementException e) {
             return false;
@@ -482,7 +476,7 @@ public class AdminLoginPage {
 
     public void verifyAuthenticationFailureMessage() {
         try {
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, invalidCredentialMessage);
+            ElementUtil.eu.wait_for_element_to_be_displayed(driver, ConfigManager.getPropertyinInt("implicit.wait"), invalidCredentialMessage);
             if (invalidCredentialMessage.isDisplayed()) {
                 System.out.println("Authentication failure message is displayed: " + invalidCredentialMessage.getText());
             } else {
@@ -532,7 +526,8 @@ public class AdminLoginPage {
 
     public void loggedOutSuccessfullyToastIsDisplayed() {
         try {
-            ElementUtil.eu.wait_for_element_to_be_displayed(driver, 10, loggedOutSuccessfullyToast);
+            ElementUtil.eu.wait_for_element_to_be_displayed(
+                    driver, ConfigManager.getPropertyinInt("implicit.wait"), loggedOutSuccessfullyToast);
             if (loggedOutSuccessfullyToast.isDisplayed()) {
                 System.out.println("Logged out successfully toast is displayed.");
             } else {
