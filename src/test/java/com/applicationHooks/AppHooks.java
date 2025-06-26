@@ -22,11 +22,13 @@ import org.testng.annotations.AfterSuite;
 public class AppHooks {
     // like baseUtility class
     //	private static ThreadLocal<Scenario> scenario = new ThreadLocal<>();
-    private DriverFactory df = new DriverFactory();
+    private DriverFactory df;
     private WebDriver driver;
     public static Properties prop;
     public static Properties tdata;
     public static Scenario scenario;
+
+
 
     @Before(order = 0)
     public void getProperty() {
@@ -37,9 +39,8 @@ public class AppHooks {
 
     @Before(order = 1)
     public void launchBrowser() {
-        String browserName = prop.getProperty("browser");
-        driver = df.init_driver(browserName); // like startup method
-
+        df = new DriverFactory();
+        driver = df.init_driver(prop.getProperty("browser"));
     }
 
     @BeforeStep
@@ -67,9 +68,8 @@ public class AppHooks {
             System.out.println("Closing browser...");
             driver.quit();
             System.out.println("Browser closed.");
-        } else {
-            System.out.println("No active browser session found.");
         }
+        DriverFactory.quitDriver();
     }
 
     @After(order = 1)

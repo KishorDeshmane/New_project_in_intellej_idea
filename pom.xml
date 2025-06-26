@@ -176,19 +176,18 @@
                                 <suiteXmlFiles>
                                     <suiteXmlFile>testng.xml</suiteXmlFile>
                                 </suiteXmlFiles>
-
-
                                     <rerunFailingTestsCount>0</rerunFailingTestsCount>
                                     <testFailureIgnore>true</testFailureIgnore>
-
-
 <!--                                <properties>-->
+<!--                                    <property>-->
+<!--                                        <name>dataproviderthreadcount</name>-->
+<!--                                        <value>2</value>-->
+<!--                                    </property>-->
 <!--                                    <property>-->
 <!--                                        <name>listener</name>-->
 <!--                                        <value>com.qa.utility.RetryListener</value>-->
 <!--                                    </property>-->
 <!--                                </properties>-->
-
                             </configuration>
                         </plugin>
                     </plugins>

@@ -1,4 +1,4 @@
-@TS_LOGIN_SA_001 @TS_LOGIN_SA_002 @TS_LOGIN_SA_003
+@TS_LOGIN_SA_001
 Feature: Super admin login
 
   Background:

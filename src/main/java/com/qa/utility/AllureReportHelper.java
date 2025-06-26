@@ -29,8 +29,8 @@ public class AllureReportHelper {
             Properties props = new Properties();
 
             // App-specific config
-            Capabilities cap = ((RemoteWebDriver) DriverFactory.getDriver()).getCapabilities();
-            String browserName = cap.getBrowserName();
+            // Capabilities cap = ((RemoteWebDriver) DriverFactory.getDriver()).getCapabilities();
+            String browserName = ConfigManager.getProperty("browser");
             String baseUrl = getConfigValue("base.url", "http://localhost:8080");
             String env = getSystemOrEnv("test.env", "QA");
 

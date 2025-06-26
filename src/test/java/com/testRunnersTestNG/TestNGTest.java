@@ -4,6 +4,9 @@ package com.testRunnersTestNG;
 import com.qa.utility.RetryAnalyzer;
 import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
+import org.testng.ITestContext;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
@@ -12,7 +15,7 @@ import org.testng.annotations.Test;
 
 @CucumberOptions(
 		features = "src/test/resources/features",
-//		tags="@TS_LP_001", 				// tags="@xyz or @abc", 	//	tags="@Positive",
+//		tags="@TS_PRO_A_001", 				// tags="@xyz or @abc", 	//	tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:
 //		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
@@ -31,6 +34,7 @@ public class TestNGTest extends AbstractTestNGCucumberTests {
 	@Override
     @DataProvider
 			(parallel = false)
+	// Set parallel to true if you want to run scenarios in parallel RETRY logic not working with parallel execution
     public Object[][] scenarios() {
         return super.scenarios();
     }
@@ -45,6 +49,28 @@ public class TestNGTest extends AbstractTestNGCucumberTests {
 	public void runScenario(PickleWrapper pickleWrapper, FeatureWrapper featureWrapper) {
 		super.runScenario(pickleWrapper, featureWrapper);
 	}
+
+	/**
+	 * This method is executed before the class to set up any preconditions for the Cucumber tests.
+	 * It sets the data provider thread count to 2, allowing parallel execution of scenarios.
+	 */
+	@BeforeClass
+	public void beforeClass(ITestContext context) {
+		System.out.println("Before Class: Setting up preconditions for Cucumber tests.");
+		context.getCurrentXmlTest().getSuite().setDataProviderThreadCount(2);
+	}
+
+	/**
+	 * This method is executed before the test suite to set up any preconditions for the Cucumber tests.
+	 * It can be used to initialize resources or configurations needed for the entire suite.
+	 *
+	 *
+	 * 	    @BeforeSuite
+	 *    public void beforeSuite(ITestContext context) {
+	 * 		System.out.println("Before Suite: Setting up preconditions for Cucumber tests.");
+	 *    }
+	 *
+	 */
 
 }
 

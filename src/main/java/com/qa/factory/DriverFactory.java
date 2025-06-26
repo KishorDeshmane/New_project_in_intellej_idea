@@ -53,15 +53,14 @@ public class DriverFactory {
                 throw new IllegalArgumentException("Invalid browser name: " + browser);
         }
 
-        WebDriver driver = getDriver();
-        driver.manage().deleteAllCookies();
+        getDriver().manage().deleteAllCookies();
         if (maximize) {
-            driver.manage().window().maximize();
+            getDriver().manage().window().maximize();
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageLoadTimeout));
-        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(scriptTimeout));
-        return driver;
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait));
+        getDriver().manage().timeouts().pageLoadTimeout(Duration.ofSeconds(pageLoadTimeout));
+        getDriver().manage().timeouts().scriptTimeout(Duration.ofSeconds(scriptTimeout));
+        return getDriver();
     }
 
     private WebDriver setupChrome(boolean isHeadless, boolean isIncognito) {
@@ -105,16 +104,15 @@ public class DriverFactory {
 
     public static WebDriver getDriver() {
         if (tlDriver.get() == null) {
-            System.out.println("WebDriver is not initialized. Initializing now...");
-            new DriverFactory().init_driver(ConfigManager.getConfigProperties().getProperty("browser", "chrome"));
+//            System.out.println("WebDriver is not initialized. Initializing now...");
+//            new DriverFactory().init_driver(ConfigManager.getConfigProperties().getProperty("browser", "chrome"));
         }
         return tlDriver.get();
     }
 
-//    public void quitDriver() {
-//        if (tlDriver.get() != null) {
-//            tlDriver.get().quit();
-//            tlDriver.remove();
-//        }
-//    }
+    public static void quitDriver() {
+        if (tlDriver.get() != null) {
+            tlDriver.remove();
+        }
+    }
 }
