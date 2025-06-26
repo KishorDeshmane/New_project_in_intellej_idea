@@ -1,4 +1,4 @@
-package org.example;
+package org.emailConfig;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

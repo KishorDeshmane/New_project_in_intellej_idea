@@ -1,9 +1,8 @@
-package org.example;
+package org.emailConfig;
 
 import com.qa.utility.ConfigManager;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -13,8 +12,8 @@ import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import static org.example.AESPasswordEncryption.decrypt;
-import static org.example.AESPasswordEncryption.encrypt;
+import static org.emailConfig.AESPasswordEncryption.decrypt;
+import static org.emailConfig.AESPasswordEncryption.encrypt;
 
 public class EmailReportSender {
 
@@ -59,7 +58,7 @@ public class EmailReportSender {
                     "Dear Team,\n\n" +
                             "Please find the attached Allure test report for the latest test execution.\n\n" +
                             "Regards,\n" +
-                            "QA Automation"
+                            "QA Associate"
             );
 
             // Attach Allure Report (HTML File)

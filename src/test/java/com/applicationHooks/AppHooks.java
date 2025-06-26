@@ -1,12 +1,9 @@
 package com.applicationHooks;
 
-import java.awt.Desktop;
-import java.io.*;
 import java.util.Properties;
 
 import com.qa.utility.AllureReportHelper;
-import com.qa.utility.ElementUtil;
-import org.example.EmailReportSender;
+import org.emailConfig.EmailReportSender;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +14,6 @@ import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeStep;
 import io.cucumber.java.Scenario;
-import org.testng.annotations.AfterSuite;
 
 public class AppHooks {
     // like baseUtility class
@@ -46,7 +42,15 @@ public class AppHooks {
     @BeforeStep
     public void getScenarioInstance(Scenario scenario) {
         AppHooks.scenario = scenario;
+
     }
+
+//    @BeforeStep
+//    public void setRetryProperty(Scenario scenario) {
+//        boolean hasRetryTag = scenario.getSourceTagNames().contains("@retry");
+//        System.setProperty("RETRY_ENABLED", String.valueOf(hasRetryTag));
+//        System.out.println("🔖 Scenario: " + scenario.getName() + " | Retry tag present: " + hasRetryTag + " Tags: " + scenario.getSourceTagNames());
+//    }
 
     public static void log(String message) {
 //		Scenario activeScenario = scenario.get();

@@ -15,11 +15,12 @@ import org.testng.annotations.Test;
 
 @CucumberOptions(
 		features = "src/test/resources/features",
-//		tags="@TS_PRO_A_001", 				// tags="@xyz or @abc", 	//	tags="@Positive",
+//		tags="@TS_PRO_E", 				// tags="@xyz or @abc", 	//	tags="@Positive",
 		glue = {"stepDefinitions","com/applicationHooks"},
 		monochrome=true, //	For example if you want console output from Cucumber in a readable format, you can specify it like this:
 //		dryRun = false, //	For example if you want to check whether all feature file steps have corresponding step definitions, you can specify it like thi
 		plugin = {"pretty",
+//				"rerun:target/rerun.txt",
 			"html:target/html_report/cucumber_reports.html",
 			"junit:target/junit_report/junit_reports.xml",
 			"json:target/json_report/json_reports.json",
@@ -33,7 +34,7 @@ import org.testng.annotations.Test;
 public class TestNGTest extends AbstractTestNGCucumberTests {
 	@Override
     @DataProvider
-			(parallel = false)
+			(parallel = true)
 	// Set parallel to true if you want to run scenarios in parallel RETRY logic not working with parallel execution
     public Object[][] scenarios() {
         return super.scenarios();
@@ -44,7 +45,7 @@ public class TestNGTest extends AbstractTestNGCucumberTests {
 			groups = {"cucumber"},
 			description = "Runs Cucumber Scenarios",
 			dataProvider = "scenarios",
-			retryAnalyzer = RetryAnalyzer.class // Retry logic for failed tests
+			retryAnalyzer = RetryAnalyzer.class
 	)
 	public void runScenario(PickleWrapper pickleWrapper, FeatureWrapper featureWrapper) {
 		super.runScenario(pickleWrapper, featureWrapper);
@@ -54,11 +55,11 @@ public class TestNGTest extends AbstractTestNGCucumberTests {
 	 * This method is executed before the class to set up any preconditions for the Cucumber tests.
 	 * It sets the data provider thread count to 2, allowing parallel execution of scenarios.
 	 */
-	@BeforeClass
-	public void beforeClass(ITestContext context) {
-		System.out.println("Before Class: Setting up preconditions for Cucumber tests.");
-		context.getCurrentXmlTest().getSuite().setDataProviderThreadCount(2);
-	}
+//	@BeforeClass
+//	public void beforeClass(ITestContext context) {
+//		System.out.println("Before Class: Setting up preconditions for Cucumber tests.");
+//		context.getCurrentXmlTest().getSuite().setDataProviderThreadCount(2);
+//	}
 
 	/**
 	 * This method is executed before the test suite to set up any preconditions for the Cucumber tests.

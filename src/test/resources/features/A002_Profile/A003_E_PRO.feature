@@ -1,4 +1,4 @@
-@TS_PRO_E_001
+@TS_PRO_E
 Feature: Executive profile
 
   Background:

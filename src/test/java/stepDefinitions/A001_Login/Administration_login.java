@@ -18,8 +18,7 @@ import org.testng.annotations.Test;
 
 import java.util.Objects;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 //@Test(retryAnalyzer = com.qa.utility.RetryAnalyzer.class)
 

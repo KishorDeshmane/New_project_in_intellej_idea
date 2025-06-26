@@ -3,22 +3,85 @@ package com.qa.utility;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 public class RetryAnalyzer implements IRetryAnalyzer {
 
-    private static final int maxRetry = 2; // Total: 1 original + 2 retries
-    private ThreadLocal<Integer> attempt = ThreadLocal.withInitial(() -> 0);
+    private static final int maxRetry = 3;
+
+    // Thread-safe map to track retry counts by test name + params
+    private static ConcurrentHashMap<String, Integer> retryCountMap = new ConcurrentHashMap<>();
 
     @Override
     public boolean retry(ITestResult result) {
-        if (attempt.get() < maxRetry) {
-            int currentAttempt = attempt.get() + 1;
-            attempt.set(currentAttempt);
-            System.out.println("🔁 Retrying test: " + result.getName() + " (Attempt " + (currentAttempt + 1) + ")");
+        String key = getKey(result);
+        int currentCount = retryCountMap.getOrDefault(key, 0);
+
+        if (currentCount < maxRetry) {
+            retryCountMap.put(key, currentCount + 1);
             return true;
         }
         return false;
     }
+
+    private String getKey(ITestResult result) {
+        String methodName = result.getMethod().getMethodName();
+        String parameters = java.util.Arrays.toString(result.getParameters());
+        return methodName + parameters;
+    }
 }
+
+
+
+//
+//package com.qa.utility;
+//
+//import org.testng.IRetryAnalyzer;
+//import org.testng.ITestResult;
+//
+//public class RetryAnalyzer implements IRetryAnalyzer {
+//    private int attempt = 0;
+//    private static final int maxRetry = 2;
+//
+//    @Override
+//    public boolean retry(ITestResult result) {
+//        if (attempt < maxRetry) {
+//            attempt++;
+//            return true;
+//        }
+//        return false;
+//    }
+//}
+//
+//
+
+//package com.qa.utility;
+//
+//import org.testng.IRetryAnalyzer;
+//import org.testng.ITestResult;
+//
+//public class RetryAnalyzer implements IRetryAnalyzer {
+//
+//    private static final int MAX_RETRY = 2; // Total: 1 original + 2 retries
+//    private final ThreadLocal<Integer> attempt = ThreadLocal.withInitial(() -> 0);
+//
+//    @Override
+//    public boolean retry(ITestResult result) {
+//        String retryEnabled = System.getProperty("RETRY_ENABLED", "false");
+//
+//        if (retryEnabled.equalsIgnoreCase("true")) {
+//            int currentAttempt = attempt.get();
+//            if (currentAttempt < MAX_RETRY) {
+//                attempt.set(currentAttempt + 1);
+//                System.out.println("Retry logic applied for: " + result.getName() + " | RetryEnabled: " + retryEnabled);
+//                System.out.println("🔁 Retrying test: " + result.getName() + " (Attempt " + (currentAttempt + 2) + ")");
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+//}
 
 
 //
